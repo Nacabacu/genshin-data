@@ -54,7 +54,7 @@ export interface ArtifactData extends ItemDataBase {}
 
 export interface CharacterData extends ItemDataBase {
   element: string;
-  weapon: string;
+  weaponType: string;
   ascendMaterial: CharacterAscendMaterial;
   talentMaterial: TalentMaterial;
 }
@@ -70,4 +70,15 @@ export interface TalentMaterial {
   common: string;
   book: string;
   weeklyBoss: string;
+}
+
+export interface WeaponData extends ItemDataBase {
+  type: string;
+  ascendMaterial: WeaponAscendMaterial;
+}
+
+export interface WeaponAscendMaterial {
+  weapon: string;
+  elite: string;
+  common: string;
 }

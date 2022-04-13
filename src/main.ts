@@ -2,9 +2,9 @@ import _config from './config.json';
 import { existsSync, mkdirSync, rmSync } from 'fs';
 import { getMaterial } from './material';
 import { Config, Context, Dictionary, MaterialGroupConfig } from './types';
-import { getId } from './util';
 import { getArtifact } from './artifact';
 import { getCharacter } from './character';
+import { getWeapon } from './weapon';
 
 async function main() {
   const config = <Config>_config;
@@ -31,6 +31,10 @@ async function main() {
 
   if (exportType.includes('character')) {
     await getCharacter(context);
+  }
+
+  if (exportType.includes('weapon')) {
+    await getWeapon(context);
   }
 }
 

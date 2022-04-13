@@ -43,7 +43,7 @@ export function getCharacter(context: Context) {
           rarity: character.rarity,
           url: character.url?.fandom,
           element: character.element,
-          weapon: character.weapontype,
+          weaponType: character.weapontype,
           ascendMaterial: {
             gem: ascendMaterial.gem || '',
             boss: ascendMaterial.boss || '',
@@ -67,7 +67,7 @@ export function getCharacter(context: Context) {
         rarity: character.rarity,
         url: character.url?.fandom,
         element: character.element,
-        weapon: character.weapontype,
+        weaponType: character.weapontype,
         ascendMaterial: {
           gem: ascendMaterial.gem || '',
           boss: ascendMaterial.boss || '',
