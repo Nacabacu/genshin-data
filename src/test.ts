@@ -1,20 +1,24 @@
+import { writeFileSync } from 'fs';
 import genshindb, { Languages } from 'genshin-db';
 
-const result = genshindb.materials('Local Specialty (Liyue)', {
-  resultLanguage: Languages.English,
+const data: any[] = [];
+// const result = <string[]>genshindb.artifacts('name', {
+//   matchCategories: true,
+// });
+// result.forEach((name) => {
+//   const item = <genshindb.Artifact>genshindb.artifacts(name);
+
+//   data.push(item);
+// });
+
+const result = <string[]>genshindb.domains('name', {
   matchCategories: true,
 });
+result.forEach((name) => {
+  const item = <genshindb.Domain>genshindb.domains(name);
 
-const result2 = genshindb.materials('Local Specialty (Liyue)', {
-  resultLanguage: Languages.Thai,
-  matchCategories: true,
+  data.push(item);
 });
 
-const result3 = genshindb.materials('Local Specialty (Liyue)', {
-  resultLanguage: Languages.Japanese,
-  matchCategories: true,
-});
-
-console.log(result);
-console.log(result2);
-console.log(result3);
+console.log(data);
+writeFileSync('./test.json', JSON.stringify(data, null, 2));

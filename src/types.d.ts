@@ -22,19 +22,21 @@ export interface Config extends ContextBase {
   materialGroup?: MaterialGroupConfig;
 }
 
+export interface ItemDataBase {
+  id: string;
+  rarity?: string;
+  url?: string;
+}
+
 export interface MaterialGroupConfig {
   [key: string]: string[];
 }
 
 export interface MaterialDataGroup {
   id: string;
-  dropdomainId?: string;
-  daysofweek?: string[];
   material: MaterialData[];
 }
 
-export interface MaterialData {
-  id: string;
-  rarity?: string;
-  url: string;
-}
+export interface MaterialData extends ItemDataBase {}
+
+export interface ArtifactData extends ItemDataBase {}

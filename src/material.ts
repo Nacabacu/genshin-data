@@ -46,39 +46,34 @@ function getMaterialFromCategory(category: string, context: Context) {
   materialNameList.forEach((materialName) => {
     const material = <Material>genshindb.materials(materialName);
     const id = getId(material.name);
+    const materialGroupId = materialGroupMapping[id];
+    const imgUrl = material.images.fandom || material.images.redirect;
+    const materialData: MaterialData = {
+      id,
+      rarity: material.rarity,
+      url: material.url?.fandom,
+    };
 
-    if (id) {
-      const materialGroupId = materialGroupMapping[id];
-      const imgUrl = material.images.fandom || material.images.redirect;
-      const materialData: MaterialData = {
-        id,
-        rarity: material.rarity,
-        url: material.url?.fandom,
-      };
+    if (materialGroupId) {
+      let materialGroup = <MaterialDataGroup>materialDataList.find((mat) => mat.id === materialGroupId);
 
-      if (materialGroupId) {
-        let materialGroup = <MaterialDataGroup>materialDataList.find((mat) => mat.id === materialGroupId);
-
-        if (!materialGroup) {
-          materialGroup = {
-            id: materialGroupId,
-            dropdomainId: material?.dropdomain && getId(material.dropdomain),
-            daysofweek: material.daysofweek,
-            material: [],
-          };
-        }
-
-        materialGroup.material.push(materialData);
-        materialDataList.push(materialGroup);
-      } else {
-        materialDataList.push(materialData);
+      if (!materialGroup) {
+        materialGroup = {
+          id: materialGroupId,
+          material: [],
+        };
       }
 
-      if (isDownloadImage) {
-        downloadImage(imgUrl, outputDir, TYPE, id).catch((err) => {
-          console.log(`Cannot download image for material name: ${materialName} with error: ${err}`);
-        });
-      }
+      materialGroup.material.push(materialData);
+      materialDataList.push(materialGroup);
+    } else {
+      materialDataList.push(materialData);
+    }
+
+    if (isDownloadImage) {
+      downloadImage(imgUrl, outputDir, TYPE, id).catch((err) => {
+        console.log(`Cannot download image for material name: ${materialName} with error: ${err}`);
+      });
     }
   });
 }

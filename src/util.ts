@@ -13,6 +13,10 @@ export function getId(name: string) {
     .replace(/ /g, '_');
 }
 
+export function findMaxInArray(data: string[]) {
+  return Math.max(...data.map((i) => parseInt(i)));
+}
+
 export async function downloadImage(url: string, outputDir: string, folderName: string, fileName: string) {
   const path = `${outputDir}/${ASSET_FOLDER}/${folderName}`;
 

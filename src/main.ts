@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, rmSync } from 'fs';
 import { getMaterial } from './material';
 import { Config, Context, Dictionary } from './types';
 import { getId } from './util';
+import { getArtifact } from './artifact';
 
 async function main() {
   const config = <Config>_config;
@@ -21,6 +22,10 @@ async function main() {
 
   if (exportType.includes('material')) {
     await getMaterial(context);
+  }
+
+  if (exportType.includes('artifact')) {
+    await getArtifact(context);
   }
 }
 

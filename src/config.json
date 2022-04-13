@@ -4,7 +4,7 @@
   "languages": ["Thai", "Japanese"],
   "exportType": ["material", "artifact", "character", "weapon", "domain"],
   "outputDir": "../data",
-  "itemGroup": {
+  "materialGroup": {
     "Brilliant Diamond": [
       "Brilliant Diamond Sliver",
       "Brilliant Diamond Fragment",
