@@ -1,13 +1,13 @@
 import _config from './config.json';
 import { existsSync, mkdirSync, rmSync } from 'fs';
-import * as item from './item';
+import { getMaterial } from './material';
 import { Config, Context, Dictionary } from './types';
 import { getId } from './util';
 
 async function main() {
   const config = <Config>_config;
 
-  const { isClearOutputDir, outputDir } = config;
+  const { isClearOutputDir, outputDir, exportType } = config;
 
   if (isClearOutputDir) {
     rmSync(outputDir, { recursive: true, force: true });
@@ -19,26 +19,28 @@ async function main() {
 
   const context: Context = parseConfig(config);
 
-  await item.getItem(context);
+  if (exportType.includes('material')) {
+    await getMaterial(context);
+  }
 }
 
 function parseConfig(config: Config): Context {
-  const itemGroupMapping: Dictionary<string> = {};
-  const { itemGroup } = config;
+  const materialGroupMapping: Dictionary<string> = {};
+  const { materialGroup } = config;
 
-  for (const key in itemGroup) {
-    const data = itemGroup[key];
+  for (const key in materialGroup) {
+    const data = materialGroup[key];
 
     data.forEach((name) => {
-      itemGroupMapping[getId(name)] = getId(key);
+      materialGroupMapping[getId(name)] = getId(key);
     });
   }
 
-  delete config['itemGroup'];
+  delete config['materialGroup'];
 
   return {
     ...config,
-    itemGroupMapping,
+    materialGroupMapping,
   };
 }
 

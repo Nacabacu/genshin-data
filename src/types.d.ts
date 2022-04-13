@@ -9,30 +9,30 @@ export interface ContextBase {
   isDownloadImage: boolean;
   isClearOutputDir: boolean;
   localize: Localizable[];
-  export: Exportable[];
+  exportType: Exportable[];
   outputDir: string;
 }
 
 export interface Context extends ContextBase {
-  itemGroupMapping: Dictionary<string>;
+  materialGroupMapping: Dictionary<string>;
 }
 
 export interface Config extends ContextBase {
-  itemGroup?: ItemGroupConfig;
+  materialGroup?: MaterialGroupConfig;
 }
 
-export interface ItemGroupConfig {
+export interface MaterialGroupConfig {
   [key: string]: string[];
 }
 
-export interface ItemDataGroup {
+export interface MaterialDataGroup {
   id: string;
   dropdomainId?: string;
   daysofweek?: string[];
-  item: ItemData[];
+  material: MaterialData[];
 }
 
-export interface ItemData {
+export interface MaterialData {
   id: string;
   rarity?: string;
   url: string;

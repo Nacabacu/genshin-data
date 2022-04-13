@@ -1,56 +1,80 @@
 {
-  "isDownloadImage": true,
-  "isClearOutputDir": false,
-  "localize": ["en", "th"],
-  "exportType": ["material", "artifact", "character", "weapon", "domain"],
-  "outputDir": "../data",
-  "itemGroup": {
-    "Brilliant Diamond": [
-      "Brilliant Diamond Sliver",
-      "Brilliant Diamond Fragment",
-      "Brilliant Diamond Chunk",
-      "Brilliant Diamond Gemstone"
-    ],
-    "Agnidus Agate": [
-      "Agnidus Agate Sliver",
-      "Agnidus Agate Fragment",
-      "Agnidus Agate Chunk",
-      "Agnidus Agate Gemstone"
-    ],
-    "Varunada Lazurite": [
-      "Varunada Lazurite Sliver",
-      "Varunada Lazurite Fragment",
-      "Varunada Lazurite Chunk",
-      "Varunada Lazurite Gemstone"
-    ],
-    "Vajrada Amethyst": [
-      "Vajrada Amethyst Sliver",
-      "Vajrada Amethyst Fragment",
-      "Vajrada Amethyst Chunk",
-      "Vajrada Amethyst Gemstone"
-    ],
-    "Vayuda Turquoise": [
-      "Vayuda Turquoise Sliver",
-      "Vayuda Turquoise Fragment",
-      "Vayuda Turquoise Chunk",
-      "Vayuda Turquoise Gemstone"
-    ],
-    "Shivada Jade": ["Shivada Jade Sliver", "Shivada Jade Fragment", "Shivada Jade Chunk", "Shivada Jade Gemstone"],
-    "Prithiva Topaz": [
-      "Prithiva Topaz Sliver",
-      "Prithiva Topaz Fragment",
-      "Prithiva Topaz Chunk",
-      "Prithiva Topaz Gemstone"
-    ],
-    "Freedom": ["Teachings of Freedom", "Guide to Freedom", "Philosophies of Freedom"],
-    "Resistance": ["Teachings of Resistance", "Guide to Resistance", "Philosophies of Resistance"],
-    "Ballad": ["Teachings of Ballad", "Guide to Ballad", "Philosophies of Ballad"],
-    "Prosperity": ["Teachings of Prosperity", "Guide to Prosperity", "Philosophies of Prosperity"],
-    "Diligence": ["Teachings of Diligence", "Guide to Diligence", "Philosophies of Diligence"],
-    "Gold": ["Teachings of Gold", "Guide to Gold", "Philosophies of Gold"],
-    "Transience": ["Teachings ofTransience ", "Guide to Transience", "Philosophies of Transience"],
-    "Elegance": ["Teachings of Elegance", "Guide to Elegance", "Philosophies of Elegance"],
-    "Light": ["Teachings of Light", "Guide toLight ", "Philosophies of Light"],
+  "gem": [
+    "Brilliant Diamond",
+    "Agnidus Agate",
+    "Varunada Lazurite",
+    "Vajrada Amethyst",
+    "Vayuda Turquoise",
+    "Shivada Jade",
+    "Prithiva Topaz"
+  ],
+  "boss": [
+    "Hurricane Seed",
+    "Lighting Prism",
+    "Basalt Pillar",
+    "Hoarfrost Core",
+    "Everflame Seed",
+    "Cleansing Heart",
+    "Juvenile Jade",
+    "Crystalline Bloom",
+    "Marionette Core",
+    "Perpetual Heart",
+    "Smoldering Pearl",
+    "Dew of Repudiation",
+    "Storm Beads",
+    "Riftborn Regalia",
+    "Dragonheir's False Fin",
+    "Runic Fang"
+  ],
+  "local": [
+    "Calla Lily",
+    "Wolfhook",
+    "Valberry",
+    "Cecilia",
+    "Windwheel Aster",
+    "Philanemo Mushroom",
+    "Small Lamp Grass",
+    "Dandelion Seed",
+    "Jueyun Chili",
+    "Noctilucous Jade",
+    "Silk Flower",
+    "Glaze Lily",
+    "Qingxin",
+    "Starconch",
+    "Violetgrass",
+    "Cor Lapis",
+    "Onikabuto",
+    "Sakura Bloom",
+    "Crystal Marrow",
+    "Dendrobium",
+    "Naku weed",
+    "Sea Ganoderma",
+    "Sango Pearl",
+    "Amakumo Fruit",
+    "Fluorescent Fungus"
+  ],
+  "book": ["Freedom", "Resistance", "Ballad", "Prosperity", "Diligence", "Gold", "Transience", "Elegance", "Light"],
+  "weeklyBoss": [
+    "Dvalin's Plume",
+    "Dvalin's Claw",
+    "Dvalin's Sigh",
+    "Tail of Boreas",
+    "Ring of Boreas",
+    "Spirit Locket of Boreas",
+    "Tusk of Monoceros Caeli",
+    "Shard of a Foul Legacy",
+    "Shadow of the Warrior",
+    "Dragon Lord's Crown",
+    "Bloodjade Branch",
+    "Gilded Scale",
+    "Molten Moment",
+    "Hellfire Butterfly",
+    "Ashen Heart",
+    "Mudra of the Malefic General",
+    "Tears of the Calamitous God",
+    "The Meaning of Aeons"
+  ],
+  "weapon": {
     "Decarabian": [
       "Tile of Decarabian's Tower",
       "Debris of Decarabian's City",
@@ -84,14 +108,11 @@
       "Golden Branch of a Distant Sea"
     ],
     "Narukami": ["Narukami's Wisdom", "Narukami's Joy", "Narukami's Affection", "Narukami's Valor"],
-    "Mask": [
-      "Mask of the Wicked Lieutenant",
-      "Mask of the Tiger's Bite",
-      "Mask of the One-Horned",
-      "Mask of the Kijin"
-    ],
+    "Mask": ["Mask of the Wicked Lieutenant", "Mask of the Tiger's Bite", "Mask of the One-Horned", "Mask of the Kijin"]
+  },
+  "common": {
     "Slime": ["Slime Condensate", "Slime Secretions", "Slime Concentrate"],
-    "Common Mask": ["Damaged Mask", "Stained Mask", "Ominous Mask"],
+    "Mask": ["Damaged Mask", "Stained Mask", "Ominous Mask"],
     "Scroll": ["Divining Scroll", "Sealed Scroll", "Forbidden Curse Scroll"],
     "Arrowhead": ["Firm Arrowhead", "Sharp Arrowhead", "Weathered ArrowHead"],
     "Insignia": ["Recruit's Insigna", "Sergeant's Insignia", "Lieutenant's Insignia"],
@@ -99,7 +120,9 @@
     "Nectar": ["Whopperflower Nectar", "Shimmering Nectar", "Energy Nectar"],
     "Handguard": ["Old Handguard", "Kageuchi Handguard", "Famed Handguard"],
     "Spectral": ["Spectral Husk", "Spectral Heart", "Spectral Nucleus"],
-    "Spore": ["Fungal Spores", "Luminescent Pollen", "Crystalline Cyst Dust"],
+    "Spore": ["Fungal Spores", "Luminescent Pollen", "Crystalline Cyst Dust"]
+  },
+  "elite": {
     "Horn": ["Heavy Horn", "Black Bronze Horn", "Black Crystal Horn"],
     "Lay Lines": ["Dead Ley Line branch", "Dead Ley Line Leaves", "Ley Line Sprout"],
     "Chaos": ["Chaos Device", "Chaos Circuit", "Chaos Core"],
