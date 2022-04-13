@@ -85,7 +85,7 @@
         "grain_of_aerosiderite",
         "piece_of_aerosiderite",
         "bit_of_aerosiderite",
-        "chuck_of_aerosiderite"
+        "chunk_of_aerosiderite"
       ],
       "distant_sea": [
         "coral_branch_of_a_distant_sea",
@@ -112,9 +112,9 @@
       "horn": ["heavy_horn", "black_bronze_horn", "black_crystal_horn"],
       "lay_lines": ["dead_ley_line_branch", "dead_ley_line_leaves", "ley_line_sprout"],
       "chaos": ["chaos_device", "chaos_circuit", "chaos_core"],
-      "mist_grass": ["mist_grass_pollen", "mist_grass", "miss_grass_wick"],
+      "mist_grass": ["mist_grass_pollen", "mist_grass", "mist_grass_wick"],
       "knife": ["hunters_sacrificial_knife", "agents_sacrificial_knife", "inspectors_sacrificial_knife"],
-      "bone_shard": ["fragile_bone_shard", "sturdy_bone_shard", "fossillized_bone_shard"],
+      "bone_shard": ["fragile_bone_shard", "sturdy_bone_shard", "fossilized_bone_shard"],
       "sentinel_chaos": ["chaos_gear", "chaos_axis", "chaos_oculus"],
       "prism": ["dismal_prism", "crystal_prism", "polarizing_prism"],
       "claw": ["concealed_claw", "concealed_unguis", "concealed_talon"],
