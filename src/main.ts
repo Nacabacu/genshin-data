@@ -1,23 +1,45 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { chromium } from 'playwright';
-import exportWeapon from './weapon';
-
-const DATA_DIR = path.join(__dirname, '../data');
-const ASSET_DIR = path.join(__dirname, '../asset');
+import _config from './config.json';
+import { existsSync, mkdirSync, rmSync } from 'fs';
+import * as item from './item';
+import { Config, Context, Dictionary } from './types';
+import { getId } from './util';
 
 async function main() {
-  const browser = await chromium.launch({ headless: false });
+  const config = <Config>_config;
 
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR);
+  const { isClearOutputDir, outputDir } = config;
+
+  if (isClearOutputDir) {
+    rmSync(outputDir, { recursive: true, force: true });
   }
 
-  if (!fs.existsSync(ASSET_DIR)) {
-    fs.mkdirSync(ASSET_DIR);
+  if (!existsSync(outputDir)) {
+    mkdirSync(outputDir);
   }
 
-  await exportWeapon(browser);
+  const context: Context = parseConfig(config);
+
+  await item.getItem(context);
+}
+
+function parseConfig(config: Config): Context {
+  const itemGroupMapping: Dictionary<string> = {};
+  const { itemGroup } = config;
+
+  for (const key in itemGroup) {
+    const data = itemGroup[key];
+
+    data.forEach((name) => {
+      itemGroupMapping[getId(name)] = getId(key);
+    });
+  }
+
+  delete config['itemGroup'];
+
+  return {
+    ...config,
+    itemGroupMapping,
+  };
 }
 
 main();

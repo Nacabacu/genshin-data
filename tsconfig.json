@@ -4,7 +4,7 @@
     "useDefineForClassFields": true,
     "allowJs": false,
     "skipLibCheck": false,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "strictNullChecks": true,
@@ -16,5 +16,5 @@
     "noEmit": true,
     "baseUrl": "."
   },
-  "include": ["./src/**/*.ts"]
+  "include": ["./src/**/*.ts", "./src/**/*.d.ts"]
 }
