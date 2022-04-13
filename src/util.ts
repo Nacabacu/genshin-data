@@ -1,7 +1,10 @@
-import { createWriteStream, existsSync, mkdirSync } from 'fs';
+import { createWriteStream, existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import axios from 'axios';
+import { Languages } from 'genshin-db';
+import { Dictionary } from './types';
 
-const IMAGE_BASE_PATH = '/asset';
+const ASSET_FOLDER = 'asset';
+const LOCALIZE_FOLDER = 'localize';
 
 export function getId(name: string) {
   return name
@@ -11,7 +14,7 @@ export function getId(name: string) {
 }
 
 export async function downloadImage(url: string, outputDir: string, folderName: string, fileName: string) {
-  const path = `${outputDir}/${IMAGE_BASE_PATH}/${folderName}`;
+  const path = `${outputDir}/${ASSET_FOLDER}/${folderName}`;
 
   if (!existsSync(path)) {
     mkdirSync(path, { recursive: true });
@@ -29,4 +32,25 @@ export async function downloadImage(url: string, outputDir: string, folderName: 
       .on('error', reject)
       .once('close', () => resolve(filePath));
   });
+}
+
+export function addLocalize(language: Languages, keyList: string[], valueList: string[], outputDir: string) {
+  const path = `${outputDir}/${LOCALIZE_FOLDER}/`;
+
+  if (!existsSync(path)) {
+    mkdirSync(path, { recursive: true });
+  }
+
+  const filePath = `${path}/${language}.json`;
+  let localizeFile: Dictionary<string> = {};
+
+  if (existsSync(filePath)) {
+    localizeFile = <Dictionary<string>>JSON.parse(readFileSync(filePath, 'utf-8'));
+  }
+
+  keyList.forEach((key, index) => {
+    localizeFile[key] = valueList[index];
+  });
+
+  writeFileSync(filePath, JSON.stringify(localizeFile, null, 2));
 }

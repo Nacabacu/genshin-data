@@ -1,14 +1,15 @@
+import { Languages } from 'genshin-db';
+
 export interface Dictionary<T> {
   [key: string]: T;
 }
 
-export type Localizable = 'en' | 'th';
 export type Exportable = 'material' | 'artifact' | 'character' | 'weapon' | 'domain';
 
 export interface ContextBase {
   isDownloadImage: boolean;
   isClearOutputDir: boolean;
-  localize: Localizable[];
+  languages: Languages[];
   exportType: Exportable[];
   outputDir: string;
 }

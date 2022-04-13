@@ -1,7 +1,7 @@
 {
   "isDownloadImage": true,
   "isClearOutputDir": false,
-  "localize": ["en", "th"],
+  "languages": ["Thai", "Japanese"],
   "exportType": ["material", "artifact", "character", "weapon", "domain"],
   "outputDir": "../data",
   "itemGroup": {

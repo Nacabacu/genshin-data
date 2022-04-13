@@ -1,6 +1,6 @@
-import genshindb, { Material } from 'genshin-db';
+import genshindb, { Languages, Material } from 'genshin-db';
 import { Context, MaterialData, MaterialDataGroup } from './types';
-import { downloadImage, getId } from './util';
+import { addLocalize, downloadImage, getId } from './util';
 import { writeFileSync } from 'fs';
 
 const TYPE = 'material';
@@ -29,6 +29,19 @@ export async function getMaterial(context: Context) {
 function getMaterialFromCategory(category: string, context: Context) {
   const { outputDir, isDownloadImage, materialGroupMapping } = context;
   const materialNameList = <string[]>genshindb.materials(category, { matchCategories: true });
+  const materialIdList = materialNameList.map((mat) => getId(mat));
+
+  addLocalize(Languages.English, materialIdList, materialNameList, outputDir);
+
+  if (context.languages) {
+    context.languages.forEach((language) => {
+      const localizeMaterialNameList = <string[]>(
+        genshindb.materials(category, { matchCategories: true, resultLanguage: language })
+      );
+
+      addLocalize(language, materialIdList, localizeMaterialNameList, outputDir);
+    });
+  }
 
   materialNameList.forEach((materialName) => {
     const material = <Material>genshindb.materials(materialName);
@@ -44,7 +57,7 @@ function getMaterialFromCategory(category: string, context: Context) {
       };
 
       if (materialGroupId) {
-        let materialGroup = <MaterialDataGroup>materialDataList.find((m) => m.id === materialGroupId);
+        let materialGroup = <MaterialDataGroup>materialDataList.find((mat) => mat.id === materialGroupId);
 
         if (!materialGroup) {
           materialGroup = {
