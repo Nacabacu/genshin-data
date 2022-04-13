@@ -1,9 +1,10 @@
 import _config from './config.json';
 import { existsSync, mkdirSync, rmSync } from 'fs';
 import { getMaterial } from './material';
-import { Config, Context, Dictionary } from './types';
+import { Config, Context, Dictionary, MaterialGroupConfig } from './types';
 import { getId } from './util';
 import { getArtifact } from './artifact';
+import { getCharacter } from './character';
 
 async function main() {
   const config = <Config>_config;
@@ -27,21 +28,32 @@ async function main() {
   if (exportType.includes('artifact')) {
     await getArtifact(context);
   }
+
+  if (exportType.includes('character')) {
+    await getCharacter(context);
+  }
 }
 
 function parseConfig(config: Config): Context {
-  const materialGroupMapping: Dictionary<string> = {};
+  const materialGroupMapping: Dictionary<Dictionary<string>> = {};
   const { materialGroup } = config;
 
-  for (const key in materialGroup) {
-    const data = materialGroup[key];
+  if (materialGroup) {
+    let groupKey: keyof MaterialGroupConfig;
 
-    data.forEach((name) => {
-      materialGroupMapping[getId(name)] = getId(key);
-    });
+    for (groupKey in materialGroup) {
+      const group = materialGroup[groupKey];
+      materialGroupMapping[groupKey] = {};
+
+      for (const key in group) {
+        group[key].forEach((name) => {
+          materialGroupMapping[groupKey][name] = key;
+        });
+      }
+    }
+
+    delete config['materialGroup'];
   }
-
-  delete config['materialGroup'];
 
   return {
     ...config,

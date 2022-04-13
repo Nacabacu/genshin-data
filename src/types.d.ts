@@ -12,10 +12,11 @@ export interface ContextBase {
   languages: Languages[];
   exportType: Exportable[];
   outputDir: string;
+  materialGroupData: MaterialGroupDataConfig;
 }
 
 export interface Context extends ContextBase {
-  materialGroupMapping: Dictionary<string>;
+  materialGroupMapping: Dictionary<Dictionary<string>>;
 }
 
 export interface Config extends ContextBase {
@@ -29,14 +30,44 @@ export interface ItemDataBase {
 }
 
 export interface MaterialGroupConfig {
-  [key: string]: string[];
+  gem: Dictionary<string[]>;
+  book: Dictionary<string[]>;
+  weapon: Dictionary<string[]>;
+  common: Dictionary<string[]>;
+  elite: Dictionary<string[]>;
+}
+
+export interface MaterialGroupDataConfig {
+  boss: string[];
+  local: string[];
+  weeklyBoss: string[];
 }
 
 export interface MaterialDataGroup {
   id: string;
-  material: MaterialData[];
+  materials: MaterialData[];
 }
 
 export interface MaterialData extends ItemDataBase {}
 
 export interface ArtifactData extends ItemDataBase {}
+
+export interface CharacterData extends ItemDataBase {
+  element: string;
+  weapon: string;
+  ascendMaterial: CharacterAscendMaterial;
+  talentMaterial: TalentMaterial;
+}
+
+export interface CharacterAscendMaterial {
+  gem: string;
+  boss: string;
+  common: string;
+  local: string;
+}
+
+export interface TalentMaterial {
+  common: string;
+  book: string;
+  weeklyBoss: string;
+}

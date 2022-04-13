@@ -1,7 +1,23 @@
 import { createWriteStream, existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import axios from 'axios';
-import { Languages } from 'genshin-db';
-import { Dictionary } from './types';
+import { Items, Languages } from 'genshin-db';
+import { Dictionary, MaterialGroupConfig, MaterialGroupDataConfig } from './types';
+
+interface MaterialGroupResultMapping {
+  gem: string;
+  book: string;
+  weapon: string;
+  common: string;
+  elite: string;
+  boss: string;
+  local: string;
+  weeklyBoss: string;
+}
+
+interface MaterialGroupResult {
+  type: keyof MaterialGroupConfig;
+  groupId: string;
+}
 
 const ASSET_FOLDER = 'asset';
 const LOCALIZE_FOLDER = 'localize';
@@ -15,6 +31,56 @@ export function getId(name: string) {
 
 export function findMaxInArray(data: string[]) {
   return Math.max(...data.map((i) => parseInt(i)));
+}
+
+export function findMaterialGroupMapping(
+  materialGroupMapping: Dictionary<Dictionary<string>>,
+  materialGroupData: MaterialGroupDataConfig,
+  itemList: Items[],
+): Partial<MaterialGroupResultMapping> {
+  const result: Partial<MaterialGroupResultMapping> = {};
+
+  itemList.forEach((item) => {
+    const itemId = getId(item.name);
+    const materialGroup = findMaterialGroup(materialGroupMapping, itemId);
+
+    if (materialGroup) {
+      const { type, groupId } = materialGroup;
+
+      result[type] = groupId;
+    } else {
+      let key: keyof MaterialGroupDataConfig;
+      for (key in materialGroupData) {
+        const groupData = materialGroupData[key];
+
+        if (groupData.find((data) => data === itemId)) {
+          result[key] = itemId;
+        }
+      }
+    }
+  });
+
+  return result;
+}
+
+export function findMaterialGroup(
+  materialGroupMapping: Dictionary<Dictionary<string>>,
+  id: string,
+): MaterialGroupResult | null {
+  let result: MaterialGroupResult | null = null;
+
+  for (const groupKey in materialGroupMapping) {
+    const groupId = materialGroupMapping[groupKey][id];
+
+    if (groupId) {
+      result = {
+        type: <keyof MaterialGroupConfig>groupKey,
+        groupId,
+      };
+    }
+  }
+
+  return result;
 }
 
 export async function downloadImage(url: string, outputDir: string, folderName: string, fileName: string) {

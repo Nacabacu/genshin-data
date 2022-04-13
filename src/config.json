@@ -5,110 +5,187 @@
   "exportType": ["material", "artifact", "character", "weapon", "domain"],
   "outputDir": "../data",
   "materialGroup": {
-    "Brilliant Diamond": [
-      "Brilliant Diamond Sliver",
-      "Brilliant Diamond Fragment",
-      "Brilliant Diamond Chunk",
-      "Brilliant Diamond Gemstone"
+    "gem": {
+      "brilliant_diamond": [
+        "brilliant_diamond_sliver",
+        "brilliant_diamond_fragment",
+        "brilliant_diamond_chunk",
+        "brilliant_diamond_gemstone"
+      ],
+      "agnidus_agate": [
+        "agnidus_agate_sliver",
+        "agnidus_agate_fragment",
+        "agnidus_agate_chunk",
+        "agnidus_agate_gemstone"
+      ],
+      "varunada_lazurite": [
+        "varunada_lazurite_sliver",
+        "varunada_lazurite_fragment",
+        "varunada_lazurite_chunk",
+        "varunada_lazurite_gemstone"
+      ],
+      "vajrada_amethyst": [
+        "vajrada_amethyst_sliver",
+        "vajrada_amethyst_fragment",
+        "vajrada_amethyst_chunk",
+        "vajrada_amethyst_gemstone"
+      ],
+      "vayuda_turquoise": [
+        "vayuda_turquoise_sliver",
+        "vayuda_turquoise_fragment",
+        "vayuda_turquoise_chunk",
+        "vayuda_turquoise_gemstone"
+      ],
+      "shivada_jade": ["shivada_jade_sliver", "shivada_jade_fragment", "shivada_jade_chunk", "shivada_jade_gemstone"],
+      "prithiva_topaz": [
+        "prithiva_topaz_sliver",
+        "prithiva_topaz_fragment",
+        "prithiva_topaz_chunk",
+        "prithiva_topaz_gemstone"
+      ]
+    },
+    "book": {
+      "freedom": ["teachings_of_freedom", "guide_to_freedom", "philosophies_of_freedom"],
+      "resistance": ["teachings_of_resistance", "guide_to_resistance", "philosophies_of_resistance"],
+      "ballad": ["teachings_of_ballad", "guide_to_ballad", "philosophies_of_ballad"],
+      "prosperity": ["teachings_of_prosperity", "guide_to_prosperity", "philosophies_of_prosperity"],
+      "diligence": ["teachings_of_diligence", "guide_to_diligence", "philosophies_of_diligence"],
+      "gold": ["teachings_of_gold", "guide_to_gold", "philosophies_of_gold"],
+      "transience": ["teachings_oftransience_", "guide_to_transience", "philosophies_of_transience"],
+      "elegance": ["teachings_of_elegance", "guide_to_elegance", "philosophies_of_elegance"],
+      "light": ["teachings_of_light", "guide_tolight_", "philosophies_of_light"]
+    },
+    "weapon": {
+      "decarabian": [
+        "tile_of_decarabians_tower",
+        "debris_of_decarabians_city",
+        "fragment_of_decarabians_epic",
+        "scattered_piece_of_decarabians_dream"
+      ],
+      "boreal_wolf": [
+        "boreal_wolfs_milk_tooth",
+        "boreal_wolfs_cracked_tooth",
+        "boreal_wolfs_broken_fang",
+        "boreal_wolfs_nostalgia"
+      ],
+      "dandelion_gladiator": [
+        "fetters_of_the_dandelion_gladiator",
+        "chains_of_the_dandelion_gladiator",
+        "shackles_of_the_dandelion_gladiator",
+        "dream_of_the_dandelion_gladiator"
+      ],
+      "guyun": ["luminous_sands_from_guyun", "lustrous_stone_from_guyun", "relic_from_guyun", "divine_body_from_guyun"],
+      "elixir": [
+        "mist_veiled_lead_elixir",
+        "mist_veiled_mercury_elixir",
+        "mist_veiled_gold_elixir",
+        "mist_veiled_primo_elixir"
+      ],
+      "aerosiderite": [
+        "grain_of_aerosiderite",
+        "piece_of_aerosiderite",
+        "bit_of_aerosiderite",
+        "chuck_of_aerosiderite"
+      ],
+      "distant_sea": [
+        "coral_branch_of_a_distant_sea",
+        "jeweled_branch_of_a_distant_sea",
+        "jade_branch_of_a_distant_sea",
+        "golden_branch_of_a_distant_sea"
+      ],
+      "narukami": ["narukamis_wisdom", "narukamis_joy", "narukamis_affection", "narukamis_valor"],
+      "mask": ["mask_of_the_wicked_lieutenant", "mask_of_the_tigers_bite", "mask_of_the_onehorned", "mask_of_the_kijin"]
+    },
+    "common": {
+      "slime": ["slime_condensate", "slime_secretions", "slime_concentrate"],
+      "common_mask": ["damaged_mask", "stained_mask", "ominous_mask"],
+      "scroll": ["divining_scroll", "sealed_scroll", "forbidden_curse_scroll"],
+      "arrowhead": ["firm_arrowhead", "sharp_arrowhead", "weathered_arrowhead"],
+      "insignia": ["recruits_insigna", "sergeants_insignia", "lieutenants_insignia"],
+      "treasure_insignia": ["treasure_hoarder_insignia", "silver_raven_insignia", "golden_raven_insignia"],
+      "nectar": ["whopperflower_nectar", "shimmering_nectar", "energy_nectar"],
+      "handguard": ["old_handguard", "kageuchi_handguard", "famed_handguard"],
+      "spectral": ["spectral_husk", "spectral_heart", "spectral_nucleus"],
+      "spore": ["fungal_spores", "luminescent_pollen", "crystalline_cyst_dust"]
+    },
+    "elite": {
+      "horn": ["heavy_horn", "black_bronze_horn", "black_crystal_horn"],
+      "lay_lines": ["dead_ley_line_branch", "dead_ley_line_leaves", "ley_line_sprout"],
+      "chaos": ["chaos_device", "chaos_circuit", "chaos_core"],
+      "mist_grass": ["mist_grass_pollen", "mist_grass", "miss_grass_wick"],
+      "knife": ["hunters_sacrificial_knife", "agents_sacrificial_knife", "inspectors_sacrificial_knife"],
+      "bone_shard": ["fragile_bone_shard", "sturdy_bone_shard", "fossillized_bone_shard"],
+      "sentinel_chaos": ["chaos_gear", "chaos_axis", "chaos_oculus"],
+      "prism": ["dismal_prism", "crystal_prism", "polarizing_prism"],
+      "claw": ["concealed_claw", "concealed_unguis", "concealed_talon"],
+      "statuette": ["gloomy_statuette", "dark_statuette", "deathly_statuette"]
+    }
+  },
+  "materialGroupData": {
+    "boss": [
+      "hurricane_seed",
+      "lightning_prism",
+      "basalt_pillar",
+      "hoarfrost_core",
+      "everflame_seed",
+      "cleansing_heart",
+      "juvenile_jade",
+      "crystalline_bloom",
+      "marionette_core",
+      "perpetual_heart",
+      "smoldering_pearl",
+      "dew_of_repudiation",
+      "storm_beads",
+      "riftborn_regalia",
+      "dragonheirs_false_fin",
+      "runic_fang"
     ],
-    "Agnidus Agate": [
-      "Agnidus Agate Sliver",
-      "Agnidus Agate Fragment",
-      "Agnidus Agate Chunk",
-      "Agnidus Agate Gemstone"
+    "local": [
+      "calla_lily",
+      "wolfhook",
+      "valberry",
+      "cecilia",
+      "windwheel_aster",
+      "philanemo_mushroom",
+      "small_lamp_grass",
+      "dandelion_seed",
+      "jueyun_chili",
+      "noctilucous_jade",
+      "silk_flower",
+      "glaze_lily",
+      "qingxin",
+      "starconch",
+      "violetgrass",
+      "cor_lapis",
+      "onikabuto",
+      "sakura_bloom",
+      "crystal_marrow",
+      "dendrobium",
+      "naku_weed",
+      "sea_ganoderma",
+      "sango_pearl",
+      "amakumo_fruit",
+      "fluorescent_fungus"
     ],
-    "Varunada Lazurite": [
-      "Varunada Lazurite Sliver",
-      "Varunada Lazurite Fragment",
-      "Varunada Lazurite Chunk",
-      "Varunada Lazurite Gemstone"
-    ],
-    "Vajrada Amethyst": [
-      "Vajrada Amethyst Sliver",
-      "Vajrada Amethyst Fragment",
-      "Vajrada Amethyst Chunk",
-      "Vajrada Amethyst Gemstone"
-    ],
-    "Vayuda Turquoise": [
-      "Vayuda Turquoise Sliver",
-      "Vayuda Turquoise Fragment",
-      "Vayuda Turquoise Chunk",
-      "Vayuda Turquoise Gemstone"
-    ],
-    "Shivada Jade": ["Shivada Jade Sliver", "Shivada Jade Fragment", "Shivada Jade Chunk", "Shivada Jade Gemstone"],
-    "Prithiva Topaz": [
-      "Prithiva Topaz Sliver",
-      "Prithiva Topaz Fragment",
-      "Prithiva Topaz Chunk",
-      "Prithiva Topaz Gemstone"
-    ],
-    "Freedom": ["Teachings of Freedom", "Guide to Freedom", "Philosophies of Freedom"],
-    "Resistance": ["Teachings of Resistance", "Guide to Resistance", "Philosophies of Resistance"],
-    "Ballad": ["Teachings of Ballad", "Guide to Ballad", "Philosophies of Ballad"],
-    "Prosperity": ["Teachings of Prosperity", "Guide to Prosperity", "Philosophies of Prosperity"],
-    "Diligence": ["Teachings of Diligence", "Guide to Diligence", "Philosophies of Diligence"],
-    "Gold": ["Teachings of Gold", "Guide to Gold", "Philosophies of Gold"],
-    "Transience": ["Teachings ofTransience ", "Guide to Transience", "Philosophies of Transience"],
-    "Elegance": ["Teachings of Elegance", "Guide to Elegance", "Philosophies of Elegance"],
-    "Light": ["Teachings of Light", "Guide toLight ", "Philosophies of Light"],
-    "Decarabian": [
-      "Tile of Decarabian's Tower",
-      "Debris of Decarabian's City",
-      "Fragment of Decarabian's Epic",
-      "Scattered Piece of Decarabian's Dream"
-    ],
-    "Boreal Wolf": [
-      "Boreal Wolf's Milk Tooth",
-      "Boreal Wolf's Cracked Tooth",
-      "Boreal Wolf's Broken Fang",
-      "Boreal Wolf's Nostalgia"
-    ],
-    "Dandelion Gladiator": [
-      "Fetters of the Dandelion Gladiator",
-      "Chains of the Dandelion Gladiator",
-      "Shackles of the Dandelion Gladiator",
-      "Dream of the Dandelion Gladiator"
-    ],
-    "Guyun": ["Luminous Sands from Guyun", "Lustrous Stone from Guyun", "Relic from Guyun", "Divine Body from Guyun"],
-    "Elixir": [
-      "Mist Veiled Lead Elixir",
-      "Mist Veiled Mercury Elixir",
-      "Mist Veiled Gold Elixir",
-      "Mist Veiled Primo Elixir"
-    ],
-    "Aerosiderite": ["Grain of Aerosiderite", "Piece of Aerosiderite", "Bit of Aerosiderite", "Chuck of Aerosiderite"],
-    "Distant Sea": [
-      "Coral Branch of a Distant Sea",
-      "Jeweled Branch of a Distant Sea",
-      "Jade Branch of a Distant Sea",
-      "Golden Branch of a Distant Sea"
-    ],
-    "Narukami": ["Narukami's Wisdom", "Narukami's Joy", "Narukami's Affection", "Narukami's Valor"],
-    "Mask": [
-      "Mask of the Wicked Lieutenant",
-      "Mask of the Tiger's Bite",
-      "Mask of the One-Horned",
-      "Mask of the Kijin"
-    ],
-    "Slime": ["Slime Condensate", "Slime Secretions", "Slime Concentrate"],
-    "Common Mask": ["Damaged Mask", "Stained Mask", "Ominous Mask"],
-    "Scroll": ["Divining Scroll", "Sealed Scroll", "Forbidden Curse Scroll"],
-    "Arrowhead": ["Firm Arrowhead", "Sharp Arrowhead", "Weathered ArrowHead"],
-    "Insignia": ["Recruit's Insigna", "Sergeant's Insignia", "Lieutenant's Insignia"],
-    "Treasure Insignia": ["Treasure Hoarder Insignia", "Silver Raven Insignia", "Golden Raven Insignia"],
-    "Nectar": ["Whopperflower Nectar", "Shimmering Nectar", "Energy Nectar"],
-    "Handguard": ["Old Handguard", "Kageuchi Handguard", "Famed Handguard"],
-    "Spectral": ["Spectral Husk", "Spectral Heart", "Spectral Nucleus"],
-    "Spore": ["Fungal Spores", "Luminescent Pollen", "Crystalline Cyst Dust"],
-    "Horn": ["Heavy Horn", "Black Bronze Horn", "Black Crystal Horn"],
-    "Lay Lines": ["Dead Ley Line branch", "Dead Ley Line Leaves", "Ley Line Sprout"],
-    "Chaos": ["Chaos Device", "Chaos Circuit", "Chaos Core"],
-    "Mist Grass": ["Mist Grass Pollen", "Mist Grass", "Miss Grass Wick"],
-    "Knife": ["Hunter's Sacrificial Knife", "Agent's Sacrificial Knife", "Inspector's Sacrificial Knife"],
-    "Bone Shard": ["Fragile Bone Shard", "Sturdy Bone Shard", "Fossillized Bone Shard"],
-    "Sentinel Chaos": ["Chaos Gear", "Chaos Axis", "Chaos Oculus"],
-    "Prism": ["Dismal Prism", "Crystal Prism", "Polarizing Prism"],
-    "Claw": ["Concealed Claw", "Concealed Unguis", "Concealed Talon"],
-    "Statuette": ["Gloomy Statuette", "Dark Statuette", "Deathly Statuette"]
+    "weeklyBoss": [
+      "dvalins_plume",
+      "dvalins_claw",
+      "dvalins_sigh",
+      "tail_of_boreas",
+      "ring_of_boreas",
+      "spirit_locket_of_boreas",
+      "tusk_of_monoceros_caeli",
+      "shard_of_a_foul_legacy",
+      "shadow_of_the_warrior",
+      "dragon_lords_crown",
+      "bloodjade_branch",
+      "gilded_scale",
+      "molten_moment",
+      "hellfire_butterfly",
+      "ashen_heart",
+      "mudra_of_the_malefic_general",
+      "tears_of_the_calamitous_god",
+      "the_meaning_of_aeons"
+    ]
   }
 }

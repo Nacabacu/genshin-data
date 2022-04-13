@@ -5,7 +5,7 @@ import { addLocalize, downloadImage, findMaxInArray, getId } from './util';
 
 const TYPE = 'artifact';
 
-const artifactDataLIst: ArtifactData[] = [];
+const artifactDataList: ArtifactData[] = [];
 
 export function getArtifact(context: Context) {
   const { outputDir, isDownloadImage } = context;
@@ -36,14 +36,14 @@ export function getArtifact(context: Context) {
       url: artifact.url?.fandom,
     };
 
-    artifactDataLIst.push(artifactData);
+    artifactDataList.push(artifactData);
 
     if (isDownloadImage) {
       downloadImage(imgUrl, outputDir, TYPE, id).catch((err) => {
-        console.log(`Cannot download image for material name: ${artifactName} with error: ${err}`);
+        console.log(`Cannot download image for ${TYPE} name: ${artifactName} with error: ${err}`);
       });
     }
   });
 
-  writeFileSync(outputDataPath, JSON.stringify(artifactDataLIst, null, 2));
+  writeFileSync(outputDataPath, JSON.stringify(artifactDataList, null, 2));
 }

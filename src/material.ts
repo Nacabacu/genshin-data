@@ -1,6 +1,6 @@
 import genshindb, { Languages, Material } from 'genshin-db';
 import { Context, MaterialData, MaterialDataGroup } from './types';
-import { addLocalize, downloadImage, getId } from './util';
+import { addLocalize, downloadImage, findMaterialGroup, getId } from './util';
 import { writeFileSync } from 'fs';
 
 const TYPE = 'material';
@@ -46,7 +46,7 @@ function getMaterialFromCategory(category: string, context: Context) {
   materialNameList.forEach((materialName) => {
     const material = <Material>genshindb.materials(materialName);
     const id = getId(material.name);
-    const materialGroupId = materialGroupMapping[id];
+    const materialGroup = findMaterialGroup(materialGroupMapping, id);
     const imgUrl = material.images.fandom || material.images.redirect;
     const materialData: MaterialData = {
       id,
@@ -54,25 +54,26 @@ function getMaterialFromCategory(category: string, context: Context) {
       url: material.url?.fandom,
     };
 
-    if (materialGroupId) {
-      let materialGroup = <MaterialDataGroup>materialDataList.find((mat) => mat.id === materialGroupId);
+    if (materialGroup) {
+      const materialGroupId = materialGroup.groupId;
+      let materialDataGroup = <MaterialDataGroup>materialDataList.find((mat) => mat.id === materialGroupId);
 
-      if (!materialGroup) {
-        materialGroup = {
+      if (!materialDataGroup) {
+        materialDataGroup = {
           id: materialGroupId,
-          material: [],
+          materials: [],
         };
       }
 
-      materialGroup.material.push(materialData);
-      materialDataList.push(materialGroup);
+      materialDataGroup.materials.push(materialData);
+      materialDataList.push(materialDataGroup);
     } else {
       materialDataList.push(materialData);
     }
 
     if (isDownloadImage) {
       downloadImage(imgUrl, outputDir, TYPE, id).catch((err) => {
-        console.log(`Cannot download image for material name: ${materialName} with error: ${err}`);
+        console.log(`Cannot download image for ${TYPE} name: ${materialName} with error: ${err}`);
       });
     }
   });
