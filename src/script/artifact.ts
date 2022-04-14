@@ -1,6 +1,7 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Artifact, Languages } from 'genshin-db';
-import { ArtifactData, Context, Dictionary } from '../types';
+import { ArtifactData, Dictionary, Rarity } from '../types/data';
+import { Context } from '../types/types';
 import { addLocalize, downloadImage, findMaxInArray, getId } from '../util';
 
 const TYPE = 'artifact';
@@ -31,7 +32,7 @@ export function getArtifact(context: Context) {
     const id = getId(artifact.name);
     const imgUrl = artifact.images.flower || artifact.images.circlet;
     const artifactData: ArtifactData = {
-      rarity: findMaxInArray(artifact.rarity).toString(),
+      rarity: <Rarity>findMaxInArray(artifact.rarity),
       url: artifact.url?.fandom,
     };
 

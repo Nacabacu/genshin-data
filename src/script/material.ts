@@ -1,7 +1,8 @@
-import genshindb, { Languages, Material } from 'genshin-db';
-import { Context, Dictionary, MaterialData, MaterialDataGroup } from '../types';
-import { addLocalize, downloadImage, findMaterialGroup, getId } from '../util';
 import { writeFileSync } from 'fs';
+import genshindb, { Languages, Material } from 'genshin-db';
+import { Dictionary, MaterialData, MaterialDataGroup, Rarity } from '../types/data';
+import { Context } from '../types/types';
+import { addLocalize, downloadImage, findMaterialGroup, getId } from '../util';
 
 const TYPE = 'material';
 const MATERIAL_CATEGORY_LIST = [
@@ -49,7 +50,7 @@ function getMaterialFromCategory(category: string, context: Context) {
     const materialGroup = findMaterialGroup(materialGroupMap, id);
     const imgUrl = material.images.fandom || material.images.redirect;
     const materialData: MaterialData = {
-      rarity: material.rarity,
+      rarity: material.rarity ? <Rarity>parseInt(material.rarity) : undefined,
       url: material.url?.fandom,
     };
 

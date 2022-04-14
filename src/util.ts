@@ -1,7 +1,8 @@
-import { createWriteStream, existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import axios from 'axios';
+import { createWriteStream, existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { Items, Languages } from 'genshin-db';
-import { Dictionary, MaterialGroupConfig, MaterialGroupDataConfig } from './types';
+import { Dictionary } from './types/data';
+import { MaterialGroupConfig, MaterialGroupDataConfig } from './types/types';
 
 interface MaterialGroupMap {
   gem: string;
@@ -53,8 +54,10 @@ export function findMaterialGroupMap(
       for (key in materialGroupData) {
         const groupData = materialGroupData[key];
 
-        if (groupData.find((data) => data === itemId)) {
-          result[key] = itemId;
+        if (Array.isArray(groupData)) {
+          if (groupData.find((data) => data === itemId)) {
+            result[key] = itemId;
+          }
         }
       }
     }

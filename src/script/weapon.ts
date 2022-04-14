@@ -1,6 +1,7 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Languages, Weapon } from 'genshin-db';
-import { Context, Dictionary, WeaponData } from '../types';
+import { Dictionary, Rarity, WeaponData, WeaponType } from '../types/data';
+import { Context } from '../types/types';
 import { addLocalize, downloadImage, findMaterialGroupMap, getId } from '../util';
 
 const TYPE = 'weapon';
@@ -34,9 +35,9 @@ export function getWeapon(context: Context) {
     const ascendMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, cost);
 
     const weaponData: WeaponData = {
-      rarity: weapon.rarity,
+      rarity: <Rarity>parseInt(weapon.rarity),
       url: weapon.url?.fandom,
-      type: weapon.weapontype,
+      type: <WeaponType>weapon.weapontype,
       ascendMaterial: {
         weapon: ascendMaterial.weapon || '',
         elite: ascendMaterial.elite || '',

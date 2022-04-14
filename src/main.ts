@@ -1,11 +1,12 @@
+import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs';
 import _config from './config.json';
-import { existsSync, mkdirSync, rmSync } from 'fs';
-import { getMaterial } from './script/material';
-import { Config, Context, Dictionary, MaterialGroupConfig } from './types';
 import { getArtifact } from './script/artifact';
 import { getCharacter } from './script/character';
-import { getWeapon } from './script/weapon';
 import { getDomain } from './script/domain';
+import { getMaterial } from './script/material';
+import { getWeapon } from './script/weapon';
+import { Dictionary } from './types/data';
+import { Config, Context, MaterialGroupConfig } from './types/types';
 
 async function main() {
   const config = <Config>_config;
@@ -19,6 +20,8 @@ async function main() {
   if (!existsSync(outputDir)) {
     mkdirSync(outputDir);
   }
+
+  createMappingFile(config);
 
   const context: Context = parseConfig(config);
 
@@ -41,6 +44,12 @@ async function main() {
   if (exportType.includes('domain')) {
     await getDomain(context);
   }
+}
+
+function createMappingFile(config: Config) {
+  const result = Object.assign(config.materialGroupData, config.materialGroup);
+
+  writeFileSync(`${config.outputDir}/config.json`, JSON.stringify(result, null, 2));
 }
 
 function parseConfig(config: Config): Context {

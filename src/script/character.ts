@@ -1,9 +1,11 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Character, Languages, Talent } from 'genshin-db';
-import { CharacterData, Context, Dictionary } from '../types';
+import { CharacterData, Dictionary, Element, Rarity, WeaponType } from '../types/data';
+import { Context } from '../types/types';
 import { addLocalize, downloadImage, findMaterialGroupMap, getId } from '../util';
 
 const TYPE = 'character';
+const FILTER_COST = ['mora'];
 const TRAVELER_TALENT = ['Traveler (Anemo)', 'Traveler (Geo)', 'Traveler (Electro)'];
 
 const characterDataMap: Dictionary<CharacterData> = {};
@@ -31,7 +33,8 @@ export function getCharacter(context: Context) {
     const character = <Character>genshindb.characters(characterName);
     const id = getId(character.name);
     const imgUrl = character.images.icon;
-    const ascendMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, character.costs.ascend6);
+    const filteredCost = character.costs.ascend6.filter((item) => !FILTER_COST.includes(getId(item.name)));
+    const ascendMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, filteredCost);
 
     if (id === 'lumine') {
       TRAVELER_TALENT.forEach((talentName) => {
@@ -39,10 +42,10 @@ export function getCharacter(context: Context) {
         const talentMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, talent.costs.lvl9);
         const travelerId = getId(talentName);
         const characterData: CharacterData = {
-          rarity: character.rarity,
+          rarity: <Rarity>parseInt(character.rarity),
           url: character.url?.fandom,
-          element: character.element,
-          weaponType: character.weapontype,
+          element: <Element>character.element,
+          weaponType: <WeaponType>character.weapontype,
           ascendMaterial: {
             gem: ascendMaterial.gem || '',
             boss: ascendMaterial.boss || '',
@@ -62,10 +65,10 @@ export function getCharacter(context: Context) {
       const talent = <Talent>genshindb.talents(characterName);
       const talentMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, talent.costs.lvl9);
       const characterData: CharacterData = {
-        rarity: character.rarity,
+        rarity: <Rarity>parseInt(character.rarity),
         url: character.url?.fandom,
-        element: character.element,
-        weaponType: character.weapontype,
+        element: <Element>character.element,
+        weaponType: <WeaponType>character.weapontype,
         ascendMaterial: {
           gem: ascendMaterial.gem || '',
           boss: ascendMaterial.boss || '',

@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "ts-node ./src/main"
+  },
   "devDependencies": {
     "@types/node": "^17.0.23",
     "axios": "^0.26.1",

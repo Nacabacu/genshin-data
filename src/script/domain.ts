@@ -1,7 +1,9 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Domain, Languages, Rewards } from 'genshin-db';
-import { Context, Dictionary, DomainData } from '../types';
+import { Dictionary, DomainData, Region } from '../types/data';
+import { Context } from '../types/types';
 import { addLocalize, getId } from '../util';
+import { Day, DomainType } from './../types/data.d';
 
 const TYPE = 'domain';
 const FILTER_REWARD = ['adventure_exp', 'mora', 'companionship_exp'];
@@ -40,9 +42,9 @@ export function getDomain(context: Context) {
       existDomainData.reward = [...existDomainData.reward, ...currentReward].filter(filterDuplicate);
     } else {
       const domainData: DomainData = {
-        region: domain.region,
-        type: domain.domaintype,
-        daysofweek: domain.daysofweek,
+        region: <Region>domain.region,
+        type: <DomainType>domain.domaintype,
+        daysofweek: <Day[]>domain.daysofweek,
         reward: formatReward(domain.rewardpreview),
       };
       domainDataMap[id] = domainData;
