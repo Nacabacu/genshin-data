@@ -1,5 +1,5 @@
 import genshindb, { Languages, Material } from 'genshin-db';
-import { Context, MaterialData, MaterialDataGroup } from './types';
+import { Context, Dictionary, MaterialData, MaterialDataGroup } from './types';
 import { addLocalize, downloadImage, findMaterialGroup, getId } from './util';
 import { writeFileSync } from 'fs';
 
@@ -13,6 +13,7 @@ const MATERIAL_CATEGORY_LIST = [
   'Local Specialty (Inazuma)',
 ];
 
+const materialDataMap: Dictionary<MaterialData | MaterialDataGroup> = {};
 const materialDataList: (MaterialData | MaterialDataGroup)[] = [];
 
 export async function getMaterial(context: Context) {
@@ -22,6 +23,12 @@ export async function getMaterial(context: Context) {
   MATERIAL_CATEGORY_LIST.forEach((category) => {
     getMaterialFromCategory(category, context);
   });
+
+  for (let key in materialDataMap) {
+    const data = materialDataMap[key];
+
+    materialDataList.push(data);
+  }
 
   writeFileSync(outputDataPath, JSON.stringify(materialDataList, null, 2));
 }
@@ -56,19 +63,25 @@ function getMaterialFromCategory(category: string, context: Context) {
 
     if (materialGroup) {
       const materialGroupId = materialGroup.groupId;
-      let materialDataGroup = <MaterialDataGroup>materialDataList.find((mat) => mat.id === materialGroupId);
+      const matchMaterialDataGroup = <MaterialDataGroup>materialDataMap[materialGroupId];
 
-      if (!materialDataGroup) {
-        materialDataGroup = {
-          id: materialGroupId,
-          materials: [],
-        };
+      if (matchMaterialDataGroup) {
+        matchMaterialDataGroup.materials.push(materialData);
+      } else {
+        let materialDataGroup = <MaterialDataGroup>materialDataList.find((mat) => mat.id === materialGroupId);
+
+        if (!materialDataGroup) {
+          materialDataGroup = {
+            id: materialGroupId,
+            materials: [],
+          };
+        }
+
+        materialDataGroup.materials.push(materialData);
+        materialDataMap[materialGroupId] = materialDataGroup;
       }
-
-      materialDataGroup.materials.push(materialData);
-      materialDataList.push(materialDataGroup);
     } else {
-      materialDataList.push(materialData);
+      materialDataMap[id] = materialData;
     }
 
     if (isDownloadImage) {

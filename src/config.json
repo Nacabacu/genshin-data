@@ -51,9 +51,9 @@
       "prosperity": ["teachings_of_prosperity", "guide_to_prosperity", "philosophies_of_prosperity"],
       "diligence": ["teachings_of_diligence", "guide_to_diligence", "philosophies_of_diligence"],
       "gold": ["teachings_of_gold", "guide_to_gold", "philosophies_of_gold"],
-      "transience": ["teachings_oftransience_", "guide_to_transience", "philosophies_of_transience"],
+      "transience": ["teachings_of_transience_", "guide_to_transience", "philosophies_of_transience"],
       "elegance": ["teachings_of_elegance", "guide_to_elegance", "philosophies_of_elegance"],
-      "light": ["teachings_of_light", "guide_tolight_", "philosophies_of_light"]
+      "light": ["teachings_of_light", "guide_to_light", "philosophies_of_light"]
     },
     "weapon": {
       "decarabian": [
@@ -101,7 +101,7 @@
       "common_mask": ["damaged_mask", "stained_mask", "ominous_mask"],
       "scroll": ["divining_scroll", "sealed_scroll", "forbidden_curse_scroll"],
       "arrowhead": ["firm_arrowhead", "sharp_arrowhead", "weathered_arrowhead"],
-      "insignia": ["recruits_insigna", "sergeants_insignia", "lieutenants_insignia"],
+      "insignia": ["recruits_insignia", "sergeants_insignia", "lieutenants_insignia"],
       "treasure_insignia": ["treasure_hoarder_insignia", "silver_raven_insignia", "golden_raven_insignia"],
       "nectar": ["whopperflower_nectar", "shimmering_nectar", "energy_nectar"],
       "handguard": ["old_handguard", "kageuchi_handguard", "famed_handguard"],

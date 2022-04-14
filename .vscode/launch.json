@@ -8,10 +8,10 @@
       "name": "Scraping main",
       "type": "node",
       "request": "launch",
-      "args": ["./src/main.ts"],
+      "args": ["./main.ts"],
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
       "sourceMaps": true,
-      "cwd": "${workspaceRoot}",
+      "cwd": "${workspaceRoot}/src",
       "protocol": "inspector"
     }
   ]
