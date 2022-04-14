@@ -30,6 +30,13 @@ export async function getMaterial(context: Context) {
     materialDataList.push(data);
   }
 
+  materialDataList.sort((a, b) => {
+    if (!('materials' in a)) return 1;
+    if (!('materials' in b)) return -1;
+
+    return b.materials.length - a.materials.length;
+  });
+
   writeFileSync(outputDataPath, JSON.stringify(materialDataList, null, 2));
 }
 
