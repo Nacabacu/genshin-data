@@ -1,7 +1,7 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Artifact, Languages } from 'genshin-db';
-import { ArtifactData, Context } from './types';
-import { addLocalize, downloadImage, findMaxInArray, getId } from './util';
+import { ArtifactData, Context } from '../types';
+import { addLocalize, downloadImage, findMaxInArray, getId } from '../util';
 
 const TYPE = 'artifact';
 

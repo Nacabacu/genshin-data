@@ -1,6 +1,6 @@
 import genshindb, { Languages, Material } from 'genshin-db';
-import { Context, Dictionary, MaterialData, MaterialDataGroup } from './types';
-import { addLocalize, downloadImage, findMaterialGroup, getId } from './util';
+import { Context, Dictionary, MaterialData, MaterialDataGroup } from '../types';
+import { addLocalize, downloadImage, findMaterialGroup, getId } from '../util';
 import { writeFileSync } from 'fs';
 
 const TYPE = 'material';

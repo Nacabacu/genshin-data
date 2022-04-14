@@ -1,7 +1,7 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Domain, Languages, Rewards } from 'genshin-db';
-import { Context, Dictionary, DomainData } from './types';
-import { addLocalize, getId } from './util';
+import { Context, Dictionary, DomainData } from '../types';
+import { addLocalize, getId } from '../util';
 
 const TYPE = 'domain';
 const FILTER_REWARD = ['adventure_exp', 'mora', 'companionship_exp'];

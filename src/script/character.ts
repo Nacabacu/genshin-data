@@ -1,7 +1,7 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Character, Languages, Talent } from 'genshin-db';
-import { CharacterData, Context } from './types';
-import { addLocalize, downloadImage, findMaterialGroupMap, getId } from './util';
+import { CharacterData, Context } from '../types';
+import { addLocalize, downloadImage, findMaterialGroupMap, getId } from '../util';
 
 const TYPE = 'character';
 const TRAVELER_TALENT = ['Traveler (Anemo)', 'Traveler (Geo)', 'Traveler (Electro)'];

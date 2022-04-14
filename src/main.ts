@@ -1,11 +1,11 @@
 import _config from './config.json';
 import { existsSync, mkdirSync, rmSync } from 'fs';
-import { getMaterial } from './material';
+import { getMaterial } from './script/material';
 import { Config, Context, Dictionary, MaterialGroupConfig } from './types';
-import { getArtifact } from './artifact';
-import { getCharacter } from './character';
-import { getWeapon } from './weapon';
-import { getDomain } from './domain';
+import { getArtifact } from './script/artifact';
+import { getCharacter } from './script/character';
+import { getWeapon } from './script/weapon';
+import { getDomain } from './script/domain';
 
 async function main() {
   const config = <Config>_config;

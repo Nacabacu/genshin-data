@@ -1,7 +1,7 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Languages, Weapon } from 'genshin-db';
-import { Context, WeaponData } from './types';
-import { addLocalize, downloadImage, findMaterialGroupMap, getId } from './util';
+import { Context, WeaponData } from '../types';
+import { addLocalize, downloadImage, findMaterialGroupMap, getId } from '../util';
 
 const TYPE = 'weapon';
 
