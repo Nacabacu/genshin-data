@@ -27,7 +27,7 @@ export async function getMaterial(context: Context) {
 }
 
 function getMaterialFromCategory(category: string, context: Context) {
-  const { outputDir, isDownloadImage, materialGroupMapping } = context;
+  const { outputDir, isDownloadImage, materialGroupMap } = context;
   const materialNameList = <string[]>genshindb.materials(category, { matchCategories: true });
   const materialIdList = materialNameList.map((mat) => getId(mat));
 
@@ -35,18 +35,18 @@ function getMaterialFromCategory(category: string, context: Context) {
 
   if (context.languages) {
     context.languages.forEach((language) => {
-      const localizeMaterialNameList = <string[]>(
+      const localizedNameList = <string[]>(
         genshindb.materials(category, { matchCategories: true, resultLanguage: language })
       );
 
-      addLocalize(language, materialIdList, localizeMaterialNameList, outputDir);
+      addLocalize(language, materialIdList, localizedNameList, outputDir);
     });
   }
 
   materialNameList.forEach((materialName) => {
     const material = <Material>genshindb.materials(materialName);
     const id = getId(material.name);
-    const materialGroup = findMaterialGroup(materialGroupMapping, id);
+    const materialGroup = findMaterialGroup(materialGroupMap, id);
     const imgUrl = material.images.fandom || material.images.redirect;
     const materialData: MaterialData = {
       id,

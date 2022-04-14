@@ -16,7 +16,7 @@ export interface ContextBase {
 }
 
 export interface Context extends ContextBase {
-  materialGroupMapping: Dictionary<Dictionary<string>>;
+  materialGroupMap: Dictionary<Dictionary<string>>;
 }
 
 export interface Config extends ContextBase {
@@ -81,4 +81,11 @@ export interface WeaponAscendMaterial {
   weapon: string;
   elite: string;
   common: string;
+}
+
+export interface DomainData extends ItemDataBase {
+  region: string;
+  type: string;
+  reward: string[];
+  daysofweek?: string[];
 }

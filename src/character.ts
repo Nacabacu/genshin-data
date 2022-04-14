@@ -1,7 +1,7 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Character, Languages, Talent } from 'genshin-db';
 import { CharacterData, Context } from './types';
-import { addLocalize, downloadImage, findMaterialGroupMapping, getId } from './util';
+import { addLocalize, downloadImage, findMaterialGroupMap, getId } from './util';
 
 const TYPE = 'character';
 const TRAVELER_TALENT = ['Traveler (Anemo)', 'Traveler (Geo)', 'Traveler (Electro)'];
@@ -9,7 +9,7 @@ const TRAVELER_TALENT = ['Traveler (Anemo)', 'Traveler (Geo)', 'Traveler (Electr
 const characterDataList: CharacterData[] = [];
 
 export function getCharacter(context: Context) {
-  const { outputDir, isDownloadImage, materialGroupMapping, materialGroupData } = context;
+  const { outputDir, isDownloadImage, materialGroupMap, materialGroupData } = context;
   const outputDataPath = `${outputDir}/${TYPE}.json`;
 
   const characterNameList = <string[]>genshindb.characters('name', { matchCategories: true });
@@ -19,11 +19,11 @@ export function getCharacter(context: Context) {
 
   if (context.languages) {
     context.languages.forEach((language) => {
-      const localizeMaterialNameList = <string[]>(
+      const localizedNameList = <string[]>(
         genshindb.characters('names', { matchCategories: true, resultLanguage: language })
       );
 
-      addLocalize(language, characterIdList, localizeMaterialNameList, outputDir);
+      addLocalize(language, characterIdList, localizedNameList, outputDir);
     });
   }
 
@@ -31,13 +31,13 @@ export function getCharacter(context: Context) {
     const character = <Character>genshindb.characters(characterName);
     const id = getId(character.name);
     const imgUrl = character.images.icon;
-    const ascendMaterial = findMaterialGroupMapping(materialGroupMapping, materialGroupData, character.costs.ascend6);
+    const ascendMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, character.costs.ascend6);
 
     if (id === 'aether') {
     } else if (id === 'lumine') {
       TRAVELER_TALENT.forEach((talentName) => {
         const talent = <Talent>genshindb.talents(talentName);
-        const talentMaterial = findMaterialGroupMapping(materialGroupMapping, materialGroupData, talent.costs.lvl9);
+        const talentMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, talent.costs.lvl9);
         const characterData: CharacterData = {
           id: getId(talentName),
           rarity: character.rarity,
@@ -61,7 +61,7 @@ export function getCharacter(context: Context) {
       });
     } else {
       const talent = <Talent>genshindb.talents(characterName);
-      const talentMaterial = findMaterialGroupMapping(materialGroupMapping, materialGroupData, talent.costs.lvl9);
+      const talentMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, talent.costs.lvl9);
       const characterData: CharacterData = {
         id,
         rarity: character.rarity,

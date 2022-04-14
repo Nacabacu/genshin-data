@@ -18,11 +18,11 @@ export function getArtifact(context: Context) {
 
   if (context.languages) {
     context.languages.forEach((language) => {
-      const localizeMaterialNameList = <string[]>(
+      const localizedNameList = <string[]>(
         genshindb.artifacts('names', { matchCategories: true, resultLanguage: language })
       );
 
-      addLocalize(language, artifactIdList, localizeMaterialNameList, outputDir);
+      addLocalize(language, artifactIdList, localizedNameList, outputDir);
     });
   }
 

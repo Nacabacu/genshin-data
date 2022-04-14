@@ -5,6 +5,7 @@ import { Config, Context, Dictionary, MaterialGroupConfig } from './types';
 import { getArtifact } from './artifact';
 import { getCharacter } from './character';
 import { getWeapon } from './weapon';
+import { getDomain } from './domain';
 
 async function main() {
   const config = <Config>_config;
@@ -36,10 +37,14 @@ async function main() {
   if (exportType.includes('weapon')) {
     await getWeapon(context);
   }
+
+  if (exportType.includes('domain')) {
+    await getDomain(context);
+  }
 }
 
 function parseConfig(config: Config): Context {
-  const materialGroupMapping: Dictionary<Dictionary<string>> = {};
+  const materialGroupMap: Dictionary<Dictionary<string>> = {};
   const { materialGroup } = config;
 
   if (materialGroup) {
@@ -47,11 +52,11 @@ function parseConfig(config: Config): Context {
 
     for (groupKey in materialGroup) {
       const group = materialGroup[groupKey];
-      materialGroupMapping[groupKey] = {};
+      materialGroupMap[groupKey] = {};
 
-      for (const key in group) {
+      for (let key in group) {
         group[key].forEach((name) => {
-          materialGroupMapping[groupKey][name] = key;
+          materialGroupMap[groupKey][name] = key;
         });
       }
     }
@@ -61,7 +66,7 @@ function parseConfig(config: Config): Context {
 
   return {
     ...config,
-    materialGroupMapping,
+    materialGroupMap: materialGroupMap,
   };
 }
 

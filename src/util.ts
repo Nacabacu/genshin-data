@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Items, Languages } from 'genshin-db';
 import { Dictionary, MaterialGroupConfig, MaterialGroupDataConfig } from './types';
 
-interface MaterialGroupResultMapping {
+interface MaterialGroupMap {
   gem: string;
   book: string;
   weapon: string;
@@ -33,16 +33,16 @@ export function findMaxInArray(data: string[]) {
   return Math.max(...data.map((i) => parseInt(i)));
 }
 
-export function findMaterialGroupMapping(
-  materialGroupMapping: Dictionary<Dictionary<string>>,
+export function findMaterialGroupMap(
+  materialGroupMap: Dictionary<Dictionary<string>>,
   materialGroupData: MaterialGroupDataConfig,
   itemList: Items[],
-): Partial<MaterialGroupResultMapping> {
-  const result: Partial<MaterialGroupResultMapping> = {};
+): Partial<MaterialGroupMap> {
+  const result: Partial<MaterialGroupMap> = {};
 
   itemList.forEach((item) => {
     const itemId = getId(item.name);
-    const materialGroup = findMaterialGroup(materialGroupMapping, itemId);
+    const materialGroup = findMaterialGroup(materialGroupMap, itemId);
 
     if (materialGroup) {
       const { type, groupId } = materialGroup;
@@ -64,13 +64,13 @@ export function findMaterialGroupMapping(
 }
 
 export function findMaterialGroup(
-  materialGroupMapping: Dictionary<Dictionary<string>>,
+  materialGroupMap: Dictionary<Dictionary<string>>,
   id: string,
 ): MaterialGroupResult | null {
   let result: MaterialGroupResult | null = null;
 
-  for (const groupKey in materialGroupMapping) {
-    const groupId = materialGroupMapping[groupKey][id];
+  for (let groupKey in materialGroupMap) {
+    const groupId = materialGroupMap[groupKey][id];
 
     if (groupId) {
       result = {

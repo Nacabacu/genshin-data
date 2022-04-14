@@ -1,14 +1,14 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Languages, Weapon } from 'genshin-db';
 import { Context, WeaponData } from './types';
-import { addLocalize, downloadImage, findMaterialGroupMapping, getId } from './util';
+import { addLocalize, downloadImage, findMaterialGroupMap, getId } from './util';
 
 const TYPE = 'weapon';
 
 const weaponDataList: WeaponData[] = [];
 
 export function getWeapon(context: Context) {
-  const { outputDir, isDownloadImage, materialGroupMapping, materialGroupData } = context;
+  const { outputDir, isDownloadImage, materialGroupMap, materialGroupData } = context;
   const outputDataPath = `${outputDir}/${TYPE}.json`;
 
   const weaponNameList = <string[]>genshindb.weapons('name', { matchCategories: true });
@@ -18,11 +18,11 @@ export function getWeapon(context: Context) {
 
   if (context.languages) {
     context.languages.forEach((language) => {
-      const localizeMaterialNameList = <string[]>(
+      const localizedNameList = <string[]>(
         genshindb.weapons('names', { matchCategories: true, resultLanguage: language })
       );
 
-      addLocalize(language, weaponNameIdList, localizeMaterialNameList, outputDir);
+      addLocalize(language, weaponNameIdList, localizedNameList, outputDir);
     });
   }
 
@@ -31,7 +31,7 @@ export function getWeapon(context: Context) {
     const id = getId(weapon.name);
     const imgUrl = weapon.images.icon;
     const cost = weapon.costs.ascend6 || weapon.costs.ascend5 || weapon.costs.ascend4;
-    const ascendMaterial = findMaterialGroupMapping(materialGroupMapping, materialGroupData, cost);
+    const ascendMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, cost);
 
     const weaponData: WeaponData = {
       id,
