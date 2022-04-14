@@ -1,11 +1,11 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Artifact, Languages } from 'genshin-db';
-import { ArtifactData, Context } from '../types';
+import { ArtifactData, Context, Dictionary } from '../types';
 import { addLocalize, downloadImage, findMaxInArray, getId } from '../util';
 
 const TYPE = 'artifact';
 
-const artifactDataList: ArtifactData[] = [];
+const artifactDataMap: Dictionary<ArtifactData> = {};
 
 export function getArtifact(context: Context) {
   const { outputDir, isDownloadImage } = context;
@@ -31,12 +31,11 @@ export function getArtifact(context: Context) {
     const id = getId(artifact.name);
     const imgUrl = artifact.images.flower || artifact.images.circlet;
     const artifactData: ArtifactData = {
-      id,
       rarity: findMaxInArray(artifact.rarity).toString(),
       url: artifact.url?.fandom,
     };
 
-    artifactDataList.push(artifactData);
+    artifactDataMap[id] = artifactData;
 
     if (isDownloadImage) {
       downloadImage(imgUrl, outputDir, TYPE, id).catch((err) => {
@@ -45,5 +44,5 @@ export function getArtifact(context: Context) {
     }
   });
 
-  writeFileSync(outputDataPath, JSON.stringify(artifactDataList, null, 2));
+  writeFileSync(outputDataPath, JSON.stringify(artifactDataMap, null, 2));
 }

@@ -14,7 +14,6 @@ const MATERIAL_CATEGORY_LIST = [
 ];
 
 const materialDataMap: Dictionary<MaterialData | MaterialDataGroup> = {};
-const materialDataList: (MaterialData | MaterialDataGroup)[] = [];
 
 export async function getMaterial(context: Context) {
   const { outputDir } = context;
@@ -24,20 +23,7 @@ export async function getMaterial(context: Context) {
     getMaterialFromCategory(category, context);
   });
 
-  for (let key in materialDataMap) {
-    const data = materialDataMap[key];
-
-    materialDataList.push(data);
-  }
-
-  materialDataList.sort((a, b) => {
-    if (!('materials' in a)) return 1;
-    if (!('materials' in b)) return -1;
-
-    return b.materials.length - a.materials.length;
-  });
-
-  writeFileSync(outputDataPath, JSON.stringify(materialDataList, null, 2));
+  writeFileSync(outputDataPath, JSON.stringify(materialDataMap, null, 2));
 }
 
 function getMaterialFromCategory(category: string, context: Context) {
@@ -63,7 +49,6 @@ function getMaterialFromCategory(category: string, context: Context) {
     const materialGroup = findMaterialGroup(materialGroupMap, id);
     const imgUrl = material.images.fandom || material.images.redirect;
     const materialData: MaterialData = {
-      id,
       rarity: material.rarity,
       url: material.url?.fandom,
     };
@@ -73,18 +58,13 @@ function getMaterialFromCategory(category: string, context: Context) {
       const matchMaterialDataGroup = <MaterialDataGroup>materialDataMap[materialGroupId];
 
       if (matchMaterialDataGroup) {
-        matchMaterialDataGroup.materials.push(materialData);
+        matchMaterialDataGroup.materials[id] = materialData;
       } else {
-        let materialDataGroup = <MaterialDataGroup>materialDataList.find((mat) => mat.id === materialGroupId);
+        const materialDataGroup: MaterialDataGroup = {
+          materials: {},
+        };
 
-        if (!materialDataGroup) {
-          materialDataGroup = {
-            id: materialGroupId,
-            materials: [],
-          };
-        }
-
-        materialDataGroup.materials.push(materialData);
+        materialDataGroup.materials[id] = materialData;
         materialDataMap[materialGroupId] = materialDataGroup;
       }
     } else {

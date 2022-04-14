@@ -24,7 +24,6 @@ export interface Config extends ContextBase {
 }
 
 export interface ItemDataBase {
-  id: string;
   rarity?: string;
   url?: string;
 }
@@ -44,8 +43,7 @@ export interface MaterialGroupDataConfig {
 }
 
 export interface MaterialDataGroup {
-  id: string;
-  materials: MaterialData[];
+  materials: Dictionary<MaterialData>;
 }
 
 export interface MaterialData extends ItemDataBase {}

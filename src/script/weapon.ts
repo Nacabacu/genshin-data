@@ -1,11 +1,11 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Languages, Weapon } from 'genshin-db';
-import { Context, WeaponData } from '../types';
+import { Context, Dictionary, WeaponData } from '../types';
 import { addLocalize, downloadImage, findMaterialGroupMap, getId } from '../util';
 
 const TYPE = 'weapon';
 
-const weaponDataList: WeaponData[] = [];
+const weaponDataMap: Dictionary<WeaponData> = {};
 
 export function getWeapon(context: Context) {
   const { outputDir, isDownloadImage, materialGroupMap, materialGroupData } = context;
@@ -34,7 +34,6 @@ export function getWeapon(context: Context) {
     const ascendMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, cost);
 
     const weaponData: WeaponData = {
-      id,
       rarity: weapon.rarity,
       url: weapon.url?.fandom,
       type: weapon.weapontype,
@@ -45,7 +44,7 @@ export function getWeapon(context: Context) {
       },
     };
 
-    weaponDataList.push(weaponData);
+    weaponDataMap[id] = weaponData;
 
     if (isDownloadImage) {
       downloadImage(imgUrl, outputDir, TYPE, id).catch((err) => {
@@ -54,5 +53,5 @@ export function getWeapon(context: Context) {
     }
   });
 
-  writeFileSync(outputDataPath, JSON.stringify(weaponDataList, null, 2));
+  writeFileSync(outputDataPath, JSON.stringify(weaponDataMap, null, 2));
 }
