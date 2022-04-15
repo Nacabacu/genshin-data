@@ -11,7 +11,7 @@ const TRAVELER_TALENT = ['Traveler (Anemo)', 'Traveler (Geo)', 'Traveler (Electr
 const characterDataMap: Dictionary<CharacterData> = {};
 
 export function getCharacter(context: Context) {
-  const { outputDir, isDownloadImage, materialGroupMap, materialGroupData } = context;
+  const { outputDir, isDownloadImage, materialGroupMap, materialData: materialGroupData } = context;
   const outputDataPath = `${outputDir}/${TYPE}.json`;
 
   const characterNameList = <string[]>genshindb.characters('name', { matchCategories: true });

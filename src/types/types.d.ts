@@ -1,5 +1,5 @@
 import { Languages } from 'genshin-db';
-import { Dictionary } from './data.d';
+import { Dictionary, MaterialDataConfig, MaterialGroupConfig } from './data.d';
 
 export type Exportable = 'material' | 'artifact' | 'character' | 'weapon' | 'domain';
 
@@ -9,7 +9,7 @@ export interface ContextBase {
   languages: Languages[];
   exportType: Exportable[];
   outputDir: string;
-  materialGroupData: MaterialGroupDataConfig;
+  materialData: MaterialDataConfig;
 }
 
 export interface Context extends ContextBase {
@@ -18,18 +18,4 @@ export interface Context extends ContextBase {
 
 export interface Config extends ContextBase {
   materialGroup?: MaterialGroupConfig;
-}
-
-export interface MaterialGroupConfig {
-  gem: Dictionary<string[]>;
-  book: Dictionary<string[]>;
-  weapon: Dictionary<string[]>;
-  common: Dictionary<string[]>;
-  elite: Dictionary<string[]>;
-}
-
-export interface MaterialGroupDataConfig {
-  boss: string[];
-  local: string[];
-  weeklyBoss: string[];
 }

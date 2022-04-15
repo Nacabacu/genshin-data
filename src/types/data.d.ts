@@ -59,3 +59,19 @@ export interface DomainData extends ItemDataBase {
   reward: string[];
   daysofweek?: Day[];
 }
+
+export type MaterialConfig = MaterialGroupConfig & MaterialDataConfig;
+
+export interface MaterialGroupConfig {
+  gem: Dictionary<string[]>;
+  book: Dictionary<string[]>;
+  weapon: Dictionary<string[]>;
+  common: Dictionary<string[]>;
+  elite: Dictionary<string[]>;
+}
+
+export interface MaterialDataConfig {
+  boss: string[];
+  local: string[];
+  weeklyBoss: string[];
+}

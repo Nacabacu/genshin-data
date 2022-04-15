@@ -121,7 +121,7 @@
       "statuette": ["gloomy_statuette", "dark_statuette", "deathly_statuette"]
     }
   },
-  "materialGroupData": {
+  "materialData": {
     "boss": [
       "hurricane_seed",
       "lightning_prism",

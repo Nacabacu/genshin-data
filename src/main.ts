@@ -5,8 +5,8 @@ import { getCharacter } from './script/character';
 import { getDomain } from './script/domain';
 import { getMaterial } from './script/material';
 import { getWeapon } from './script/weapon';
-import { Dictionary } from './types/data';
-import { Config, Context, MaterialGroupConfig } from './types/types';
+import { Dictionary, MaterialGroupConfig } from './types/data';
+import { Config, Context } from './types/types';
 
 async function main() {
   const config = <Config>_config;
@@ -47,9 +47,9 @@ async function main() {
 }
 
 function createMappingFile(config: Config) {
-  const result = Object.assign(config.materialGroupData, config.materialGroup);
+  const result = Object.assign(config.materialData, config.materialGroup);
 
-  writeFileSync(`${config.outputDir}/config.json`, JSON.stringify(result, null, 2));
+  writeFileSync(`${config.outputDir}/materialConfig.json`, JSON.stringify(result, null, 2));
 }
 
 function parseConfig(config: Config): Context {

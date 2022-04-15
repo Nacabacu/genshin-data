@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { createWriteStream, existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { Items, Languages } from 'genshin-db';
-import { Dictionary } from './types/data';
-import { MaterialGroupConfig, MaterialGroupDataConfig } from './types/types';
+import { Dictionary, MaterialDataConfig, MaterialGroupConfig } from './types/data';
 
 interface MaterialGroupMap {
   gem: string;
@@ -36,7 +35,7 @@ export function findMaxInArray(data: string[]) {
 
 export function findMaterialGroupMap(
   materialGroupMap: Dictionary<Dictionary<string>>,
-  materialGroupData: MaterialGroupDataConfig,
+  materialGroupData: MaterialDataConfig,
   itemList: Items[],
 ): Partial<MaterialGroupMap> {
   const result: Partial<MaterialGroupMap> = {};
@@ -50,7 +49,7 @@ export function findMaterialGroupMap(
 
       result[type] = groupId;
     } else {
-      let key: keyof MaterialGroupDataConfig;
+      let key: keyof MaterialDataConfig;
       for (key in materialGroupData) {
         const groupData = materialGroupData[key];
 

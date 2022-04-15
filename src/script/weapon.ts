@@ -9,7 +9,7 @@ const TYPE = 'weapon';
 const weaponDataMap: Dictionary<WeaponData> = {};
 
 export function getWeapon(context: Context) {
-  const { outputDir, isDownloadImage, materialGroupMap, materialGroupData } = context;
+  const { outputDir, isDownloadImage, materialGroupMap, materialData: materialGroupData } = context;
   const outputDataPath = `${outputDir}/${TYPE}.json`;
 
   const weaponNameList = <string[]>genshindb.weapons('name', { matchCategories: true });
