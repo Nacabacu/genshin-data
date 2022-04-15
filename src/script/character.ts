@@ -6,7 +6,7 @@ import { addLocalize, downloadImage, findMaterialGroupMap, getId } from '../util
 
 const TYPE = 'character';
 const FILTER_COST = ['mora'];
-const TRAVELER_TALENT = ['Traveler (Anemo)', 'Traveler (Geo)', 'Traveler (Electro)'];
+const TRAVELER_TYPE = ['Traveler (Anemo)', 'Traveler (Geo)', 'Traveler (Electro)'];
 
 const characterDataMap: Dictionary<CharacterData> = {};
 
@@ -37,10 +37,10 @@ export function getCharacter(context: Context) {
     const ascendMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, filteredCost);
 
     if (id === 'lumine') {
-      TRAVELER_TALENT.forEach((talentName) => {
-        const talent = <Talent>genshindb.talents(talentName);
+      TRAVELER_TYPE.forEach((tavelerType) => {
+        const talent = <Talent>genshindb.talents(tavelerType);
         const talentMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, talent.costs.lvl9);
-        const travelerId = getId(talentName);
+        const travelerId = getId(tavelerType);
         const characterData: CharacterData = {
           rarity: <Rarity>parseInt(character.rarity),
           url: character.url?.fandom,
@@ -86,9 +86,17 @@ export function getCharacter(context: Context) {
     }
 
     if (isDownloadImage) {
-      downloadImage(imgUrl, outputDir, TYPE, id).catch((err) => {
-        console.log(`Cannot download image for ${TYPE} name: ${characterName} with error: ${err}`);
-      });
+      if (id === 'lumine') {
+        TRAVELER_TYPE.forEach((travelerType) => {
+          downloadImage(imgUrl, outputDir, TYPE, getId(travelerType)).catch((err) => {
+            console.log(`Cannot download image for ${TYPE} name: ${characterName} with error: ${err}`);
+          });
+        });
+      } else if (id !== 'aether') {
+        downloadImage(imgUrl, outputDir, TYPE, id).catch((err) => {
+          console.log(`Cannot download image for ${TYPE} name: ${characterName} with error: ${err}`);
+        });
+      }
     }
   });
 
