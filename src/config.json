@@ -3,7 +3,7 @@
   "isClearOutputDir": false,
   "languages": ["Thai", "Japanese"],
   "exportType": ["material", "artifact", "character", "weapon", "domain"],
-  "outputDir": "../data",
+  "outputDir": "../output",
   "materialGroup": {
     "gem": {
       "brilliant_diamond": [

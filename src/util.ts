@@ -19,8 +19,27 @@ interface MaterialGroupResult {
   groupId: string;
 }
 
-const ASSET_FOLDER = 'asset';
-const LOCALIZE_FOLDER = 'localize';
+type LanguageMap = {
+  [key in Languages]: string;
+};
+
+const IMAGES_FOLDER = 'images';
+const LOCALIZATION_FOLDER = 'localization';
+const languageMap: LanguageMap = {
+  ChineseSimplified: 'zh-CN',
+  ChineseTraditional: 'zh-TW',
+  English: 'en-US',
+  French: 'fr-FR',
+  German: 'de-DE',
+  Indonesian: 'id-ID',
+  Japanese: 'ja-JP',
+  Korean: 'ko-KR',
+  Portuguese: 'pt-PT',
+  Russian: 'ru-RU',
+  Spanish: 'es-ES',
+  Thai: 'th-TH',
+  Vietnamese: 'vi-VN',
+};
 
 export function getId(name: string) {
   return name
@@ -86,7 +105,7 @@ export function findMaterialGroup(
 }
 
 export async function downloadImage(url: string, outputDir: string, folderName: string, fileName: string) {
-  const path = `${outputDir}/${ASSET_FOLDER}/${folderName}`;
+  const path = `${outputDir}/${IMAGES_FOLDER}/${folderName}`;
 
   if (!existsSync(path)) {
     mkdirSync(path, { recursive: true });
@@ -107,13 +126,13 @@ export async function downloadImage(url: string, outputDir: string, folderName: 
 }
 
 export function addLocalize(language: Languages, keyList: string[], valueList: string[], outputDir: string) {
-  const path = `${outputDir}/${LOCALIZE_FOLDER}/`;
+  const path = `${outputDir}/${LOCALIZATION_FOLDER}/`;
 
   if (!existsSync(path)) {
     mkdirSync(path, { recursive: true });
   }
 
-  const filePath = `${path}/${language}.json`;
+  const filePath = `${path}/${languageMap[language]}.json`;
   let localizeFile: Dictionary<string> = {};
 
   if (existsSync(filePath)) {

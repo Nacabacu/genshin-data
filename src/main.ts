@@ -8,10 +8,13 @@ import { getWeapon } from './script/weapon';
 import { Dictionary, MaterialGroupConfig } from './types/data';
 import { Config, Context } from './types/types';
 
+const DATA_FOLDER = 'data';
+
 async function main() {
   const config = <Config>_config;
 
   const { isClearOutputDir, outputDir, exportType } = config;
+  const dataDir = `${outputDir}/${DATA_FOLDER}`;
 
   if (isClearOutputDir) {
     rmSync(outputDir, { recursive: true, force: true });
@@ -19,6 +22,10 @@ async function main() {
 
   if (!existsSync(outputDir)) {
     mkdirSync(outputDir);
+  }
+
+  if (!existsSync(dataDir)) {
+    mkdirSync(dataDir);
   }
 
   createMappingFile(config);
@@ -49,7 +56,7 @@ async function main() {
 function createMappingFile(config: Config) {
   const result = Object.assign(config.materialData, config.materialGroup);
 
-  writeFileSync(`${config.outputDir}/materialConfig.json`, JSON.stringify(result, null, 2));
+  writeFileSync(`${config.outputDir}/data/materialConfig.json`, JSON.stringify(result, null, 2));
 }
 
 function parseConfig(config: Config): Context {

@@ -1,16 +1,15 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Languages, Weapon } from 'genshin-db';
-import { Dictionary, Rarity, WeaponData, WeaponType } from '../types/data';
+import { Rarity, WeaponData, WeaponType } from '../types/data';
 import { Context } from '../types/types';
 import { addLocalize, downloadImage, findMaterialGroupMap, getId } from '../util';
 
-const TYPE = 'weapon';
+const TYPE = 'weapons';
 
-const weaponDataMap: Dictionary<WeaponData> = {};
+const weaponDataList: WeaponData[] = [];
 
 export function getWeapon(context: Context) {
   const { outputDir, isDownloadImage, materialGroupMap, materialData: materialGroupData } = context;
-  const outputDataPath = `${outputDir}/${TYPE}.json`;
 
   const weaponNameList = <string[]>genshindb.weapons('name', { matchCategories: true });
   const weaponNameIdList = weaponNameList.map((mat) => getId(mat));
@@ -35,6 +34,7 @@ export function getWeapon(context: Context) {
     const ascendMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, cost);
 
     const weaponData: WeaponData = {
+      id,
       rarity: <Rarity>parseInt(weapon.rarity),
       url: weapon.url?.fandom,
       type: <WeaponType>weapon.weapontype,
@@ -45,7 +45,7 @@ export function getWeapon(context: Context) {
       },
     };
 
-    weaponDataMap[id] = weaponData;
+    weaponDataList.push(weaponData);
 
     if (isDownloadImage) {
       downloadImage(imgUrl, outputDir, TYPE, id).catch((err) => {
@@ -54,5 +54,5 @@ export function getWeapon(context: Context) {
     }
   });
 
-  writeFileSync(outputDataPath, JSON.stringify(weaponDataMap, null, 2));
+  writeFileSync(`${outputDir}/data/${TYPE}.json`, JSON.stringify(weaponDataList, null, 2));
 }

@@ -1,16 +1,15 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Artifact, Languages } from 'genshin-db';
-import { ArtifactData, Dictionary, Rarity } from '../types/data';
+import { ArtifactData, Rarity } from '../types/data';
 import { Context } from '../types/types';
 import { addLocalize, downloadImage, findMaxInArray, getId } from '../util';
 
-const TYPE = 'artifact';
+const TYPE = 'artifacts';
 
-const artifactDataMap: Dictionary<ArtifactData> = {};
+const artifactDataList: ArtifactData[] = [];
 
 export function getArtifact(context: Context) {
   const { outputDir, isDownloadImage } = context;
-  const outputDataPath = `${outputDir}/${TYPE}.json`;
 
   const artifactNameList = <string[]>genshindb.artifacts('name', { matchCategories: true });
   const artifactIdList = artifactNameList.map((mat) => getId(mat));
@@ -32,11 +31,12 @@ export function getArtifact(context: Context) {
     const id = getId(artifact.name);
     const imgUrl = artifact.images.flower || artifact.images.circlet;
     const artifactData: ArtifactData = {
+      id,
       rarity: <Rarity>findMaxInArray(artifact.rarity),
       url: artifact.url?.fandom,
     };
 
-    artifactDataMap[id] = artifactData;
+    artifactDataList.push(artifactData);
 
     if (isDownloadImage) {
       downloadImage(imgUrl, outputDir, TYPE, id).catch((err) => {
@@ -45,5 +45,5 @@ export function getArtifact(context: Context) {
     }
   });
 
-  writeFileSync(outputDataPath, JSON.stringify(artifactDataMap, null, 2));
+  writeFileSync(`${outputDir}/data/${TYPE}.json`, JSON.stringify(artifactDataList, null, 2));
 }

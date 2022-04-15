@@ -10,11 +10,13 @@ export interface Dictionary<T> {
 }
 
 export interface ItemDataBase {
+  id: string;
   rarity?: Rarity;
   url?: string;
 }
 
 export interface MaterialDataGroup {
+  id: string;
   materials: Dictionary<MaterialData>;
 }
 

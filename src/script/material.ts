@@ -4,7 +4,7 @@ import { Dictionary, MaterialData, MaterialDataGroup, Rarity } from '../types/da
 import { Context } from '../types/types';
 import { addLocalize, downloadImage, findMaterialGroup, getId } from '../util';
 
-const TYPE = 'material';
+const TYPE = 'materials';
 const MATERIAL_CATEGORY_LIST = [
   'Weapon Ascension Material',
   'Character Level-Up Material',
@@ -15,16 +15,18 @@ const MATERIAL_CATEGORY_LIST = [
 ];
 
 const materialDataMap: Dictionary<MaterialData | MaterialDataGroup> = {};
+const materialDataList: (MaterialData | MaterialDataGroup)[] = [];
 
 export async function getMaterial(context: Context) {
   const { outputDir } = context;
-  const outputDataPath = `${outputDir}/${TYPE}.json`;
 
   MATERIAL_CATEGORY_LIST.forEach((category) => {
     getMaterialFromCategory(category, context);
   });
 
-  writeFileSync(outputDataPath, JSON.stringify(materialDataMap, null, 2));
+  materialDataList.push(...Object.keys(materialDataMap).map((key) => materialDataMap[key]));
+
+  writeFileSync(`${outputDir}/data/${TYPE}.json`, JSON.stringify(materialDataList, null, 2));
 }
 
 function getMaterialFromCategory(category: string, context: Context) {
@@ -50,6 +52,7 @@ function getMaterialFromCategory(category: string, context: Context) {
     const materialGroup = findMaterialGroup(materialGroupMap, id);
     const imgUrl = material.images.fandom || material.images.redirect;
     const materialData: MaterialData = {
+      id,
       rarity: material.rarity ? <Rarity>parseInt(material.rarity) : undefined,
       url: material.url?.fandom,
     };
@@ -62,6 +65,7 @@ function getMaterialFromCategory(category: string, context: Context) {
         matchMaterialDataGroup.materials[id] = materialData;
       } else {
         const materialDataGroup: MaterialDataGroup = {
+          id,
           materials: {},
         };
 

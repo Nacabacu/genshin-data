@@ -1,18 +1,17 @@
 import { writeFileSync } from 'fs';
 import genshindb, { Character, Languages, Talent } from 'genshin-db';
-import { CharacterData, Dictionary, Element, Rarity, WeaponType } from '../types/data';
+import { CharacterData, Element, Rarity, WeaponType } from '../types/data';
 import { Context } from '../types/types';
 import { addLocalize, downloadImage, findMaterialGroupMap, getId } from '../util';
 
-const TYPE = 'character';
+const TYPE = 'characters';
 const FILTER_COST = ['mora'];
 const TRAVELER_TYPE = ['Traveler (Anemo)', 'Traveler (Geo)', 'Traveler (Electro)'];
 
-const characterDataMap: Dictionary<CharacterData> = {};
+const characterDataList: CharacterData[] = [];
 
 export function getCharacter(context: Context) {
   const { outputDir, isDownloadImage, materialGroupMap, materialData: materialGroupData } = context;
-  const outputDataPath = `${outputDir}/${TYPE}.json`;
 
   const characterNameList = <string[]>genshindb.characters('name', { matchCategories: true });
   const characterIdList = characterNameList.map((mat) => getId(mat));
@@ -42,6 +41,7 @@ export function getCharacter(context: Context) {
         const talentMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, talent.costs.lvl9);
         const travelerId = getId(tavelerType);
         const characterData: CharacterData = {
+          id,
           rarity: <Rarity>parseInt(character.rarity),
           url: character.url?.fandom,
           element: <Element>character.element,
@@ -59,12 +59,13 @@ export function getCharacter(context: Context) {
           },
         };
 
-        characterDataMap[travelerId] = characterData;
+        characterDataList.push(characterData);
       });
     } else if (id !== 'aether') {
       const talent = <Talent>genshindb.talents(characterName);
       const talentMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, talent.costs.lvl9);
       const characterData: CharacterData = {
+        id,
         rarity: <Rarity>parseInt(character.rarity),
         url: character.url?.fandom,
         element: <Element>character.element,
@@ -82,7 +83,7 @@ export function getCharacter(context: Context) {
         },
       };
 
-      characterDataMap[id] = characterData;
+      characterDataList.push(characterData);
     }
 
     if (isDownloadImage) {
@@ -100,5 +101,5 @@ export function getCharacter(context: Context) {
     }
   });
 
-  writeFileSync(outputDataPath, JSON.stringify(characterDataMap, null, 2));
+  writeFileSync(`${outputDir}/data/${TYPE}.json`, JSON.stringify(characterDataList, null, 2));
 }

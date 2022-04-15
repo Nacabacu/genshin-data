@@ -5,14 +5,14 @@ import { Context } from '../types/types';
 import { addLocalize, getId } from '../util';
 import { Day, DomainType } from './../types/data.d';
 
-const TYPE = 'domain';
+const TYPE = 'domains';
 const FILTER_REWARD = ['adventure_exp', 'mora', 'companionship_exp'];
 
 const domainDataMap: Dictionary<DomainData> = {};
+const domainDataList: DomainData[] = [];
 
 export function getDomain(context: Context) {
   const { outputDir } = context;
-  const outputDataPath = `${outputDir}/${TYPE}.json`;
 
   const domainNameList = <string[]>genshindb.domains('name', { matchCategories: true });
   const normalizedDomainNameList = normalizeNamelist(domainNameList);
@@ -42,6 +42,7 @@ export function getDomain(context: Context) {
       existDomainData.reward = [...existDomainData.reward, ...currentReward].filter(filterDuplicate);
     } else {
       const domainData: DomainData = {
+        id,
         region: <Region>domain.region,
         type: <DomainType>domain.domaintype,
         daysofweek: <Day[]>domain.daysofweek,
@@ -51,7 +52,9 @@ export function getDomain(context: Context) {
     }
   });
 
-  writeFileSync(outputDataPath, JSON.stringify(domainDataMap, null, 2));
+  domainDataList.push(...Object.keys(domainDataMap).map((key) => domainDataMap[key]));
+
+  writeFileSync(`${outputDir}/data/${TYPE}.json`, JSON.stringify(domainDataList, null, 2));
 }
 
 function formatReward(rewardList: Rewards[]): string[] {
