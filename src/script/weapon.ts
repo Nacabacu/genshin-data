@@ -37,7 +37,7 @@ export function getWeapon(context: Context) {
       id,
       rarity: <Rarity>parseInt(weapon.rarity),
       url: weapon.url?.fandom,
-      type: <WeaponType>weapon.weapontype,
+      type: <WeaponType>getId(weapon.weapontype),
       ascendMaterial: {
         weapon: ascendMaterial.weapon || '',
         elite: ascendMaterial.elite || '',

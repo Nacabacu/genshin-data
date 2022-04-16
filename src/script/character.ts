@@ -40,12 +40,14 @@ export function getCharacter(context: Context) {
         const talent = <Talent>genshindb.talents(tavelerType);
         const talentMaterial = findMaterialGroupMap(materialGroupMap, materialGroupData, talent.costs.lvl9);
         const travelerId = getId(tavelerType);
+        const elementMatch = /\((.+)\)/.exec(tavelerType);
+        const element = elementMatch ? elementMatch[1] : character.element;
         const characterData: CharacterData = {
-          id,
+          id: travelerId,
           rarity: <Rarity>parseInt(character.rarity),
           url: character.url?.fandom,
-          element: <Element>character.element,
-          weaponType: <WeaponType>character.weapontype,
+          element: <Element>getId(element),
+          weaponType: <WeaponType>getId(character.weapontype),
           ascendMaterial: {
             gem: ascendMaterial.gem || '',
             boss: ascendMaterial.boss || '',
@@ -68,8 +70,8 @@ export function getCharacter(context: Context) {
         id,
         rarity: <Rarity>parseInt(character.rarity),
         url: character.url?.fandom,
-        element: <Element>character.element,
-        weaponType: <WeaponType>character.weapontype,
+        element: <Element>getId(character.element),
+        weaponType: <WeaponType>getId(character.weapontype),
         ascendMaterial: {
           gem: ascendMaterial.gem || '',
           boss: ascendMaterial.boss || '',

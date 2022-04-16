@@ -1,9 +1,9 @@
 export type Rarity = 1 | 2 | 3 | 4 | 5;
-export type WeaponType = 'Sword' | 'Bow' | 'Claymore' | 'Catalyst' | 'Polearm';
-export type Element = 'Anemo' | 'Cryo' | 'Pyro' | 'Hydro' | 'Electro' | 'Geo' | 'Dendro';
-export type Day = 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday' | 'Sunday';
-export type Region = 'Mondstant' | 'Liyue' | 'Inazuma';
-export type DomainType = 'Artifacts' | 'Weapon Ascension Materials' | 'Talent Level-Up Material';
+export type WeaponType = 'sword' | 'bow' | 'claymore' | 'catalyst' | 'polearm';
+export type Element = 'anemo' | 'cryo' | 'pyro' | 'hydro' | 'electro' | 'geo' | 'dendro';
+export type Day = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
+export type Region = 'mondstant' | 'liyue' | 'inazuma';
+export type DomainType = 'artifacts' | 'weapon_ascension_materials' | 'talent_levelup_material';
 
 export interface Dictionary<T> {
   [key: string]: T;

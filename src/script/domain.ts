@@ -43,9 +43,9 @@ export function getDomain(context: Context) {
     } else {
       const domainData: DomainData = {
         id,
-        region: <Region>domain.region,
-        type: <DomainType>domain.domaintype,
-        daysofweek: <Day[]>domain.daysofweek,
+        region: <Region>getId(domain.region),
+        type: <DomainType>getId(domain.domaintype),
+        daysofweek: <Day[]>domain.daysofweek?.map((day) => getId(day)),
         reward: formatReward(domain.rewardpreview),
       };
       domainDataMap[id] = domainData;
