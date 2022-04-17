@@ -14,6 +14,7 @@ export function getCharacter(context: Context) {
   const { outputDir, isDownloadImage, materialGroupMap, materialData: materialGroupData } = context;
 
   const characterNameList = <string[]>genshindb.characters('name', { matchCategories: true });
+  characterNameList.push(...['Traveler (Anemo)', 'Traveler (Geo)', 'Traveler (Electro)']);
   const characterIdList = characterNameList.map((mat) => getId(mat));
 
   addLocalize(Languages.English, characterIdList, characterNameList, outputDir);
@@ -23,12 +24,13 @@ export function getCharacter(context: Context) {
       const localizedNameList = <string[]>(
         genshindb.characters('names', { matchCategories: true, resultLanguage: language })
       );
+      localizedNameList.push(...['Traveler (Anemo)', 'Traveler (Geo)', 'Traveler (Electro)']);
 
       addLocalize(language, characterIdList, localizedNameList, outputDir);
     });
   }
 
-  characterNameList.forEach((characterName) => {
+  characterNameList.slice(0, -3).forEach((characterName) => {
     const character = <Character>genshindb.characters(characterName);
     const id = getId(character.name);
     const imgUrl = character.images.icon;
