@@ -1,5 +1,5 @@
 {
-  "isDownloadImage": true,
+  "isDownloadImage": false,
   "isClearOutputDir": false,
   "languages": ["Thai", "Japanese"],
   "exportType": ["material", "artifact", "character", "weapon", "domain"],

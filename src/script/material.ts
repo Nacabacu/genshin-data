@@ -2,7 +2,7 @@ import { writeFileSync } from 'fs';
 import genshindb, { Languages, Material } from 'genshin-db';
 import { Dictionary, MaterialData, MaterialDataGroup, Rarity } from '../types/data';
 import { Context } from '../types/types';
-import { addLocalize, downloadImage, findMaterialGroup, getId } from '../util';
+import { addLocalize, downloadImage, getId } from '../util';
 
 const TYPE = 'materials';
 const MATERIAL_CATEGORY_LIST = [
@@ -30,7 +30,7 @@ export async function getMaterial(context: Context) {
 }
 
 function getMaterialFromCategory(category: string, context: Context) {
-  const { outputDir, isDownloadImage, materialGroupMap } = context;
+  const { outputDir, isDownloadImage } = context;
   const materialNameList = <string[]>genshindb.materials(category, { matchCategories: true });
   const materialIdList = materialNameList.map((mat) => getId(mat));
 
@@ -49,7 +49,6 @@ function getMaterialFromCategory(category: string, context: Context) {
   materialNameList.forEach((materialName) => {
     const material = <Material>genshindb.materials(materialName);
     const id = getId(material.name);
-    const materialGroup = findMaterialGroup(materialGroupMap, id);
     const imgUrl = material.images.fandom || material.images.redirect;
     const materialData: MaterialData = {
       id,
@@ -57,24 +56,7 @@ function getMaterialFromCategory(category: string, context: Context) {
       url: material.url?.fandom,
     };
 
-    if (materialGroup) {
-      const materialGroupId = materialGroup.groupId;
-      const matchMaterialDataGroup = <MaterialDataGroup>materialDataMap[materialGroupId];
-
-      if (matchMaterialDataGroup) {
-        matchMaterialDataGroup.materials[id] = materialData;
-      } else {
-        const materialDataGroup: MaterialDataGroup = {
-          id,
-          materials: {},
-        };
-
-        materialDataGroup.materials[id] = materialData;
-        materialDataMap[materialGroupId] = materialDataGroup;
-      }
-    } else {
-      materialDataMap[id] = materialData;
-    }
+    materialDataMap[id] = materialData;
 
     if (isDownloadImage) {
       downloadImage(imgUrl, outputDir, TYPE, id).catch((err) => {
